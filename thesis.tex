@@ -1,0 +1,147 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[british,a4paper,12pt,abstract=on]{scrreprt}
+\usepackage[british]{babel}
+\title{Models of Set Theory without Choice}
+\author{Qi Ji}
+\date{\today}
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+\usepackage{fancyhdr}
+\usepackage{tabu}
+\usepackage[tablewithin=section]{caption}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={\thetitle},
+            pdfauthor={\theauthor},
+            colorlinks=true,
+            linkcolor=Violet,
+            citecolor=PineGreen,
+            urlcolor=MidnightBlue,
+            breaklinks=true}
+\usepackage{cleveref}
+\usepackage{graphicx}
+\graphicspath{ {./assets/} }
+
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{csquotes}
+%% load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+%\usepackage{polyglossia}
+%\setmainlanguage[variant=british]{english}
+\usepackage[
+    style=alphabetic,
+%    maxalphanames=6,
+    maxnames=6,
+%    doi=false,isbn=false,url=false,
+]{biblatex}
+\addbibresource{\jobname.bib}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{question}[theorem]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+\newcommand{\makecoverpage}{
+    \begin{center}
+        \singlespacing
+        \includegraphics[width=0.5\textwidth]{nus_logo}
+        \vspace*{3em}
+
+        \doublespacing
+        {\huge \textbf{\thetitle}}
+        \vspace*{5em}
+
+        {An Honours Thesis \\ submitted in partial fulfilment of the requirements for
+        the degree of \\ B.Sc (Hons) in Mathematics\\}
+        \vspace*{3em}
+        {presented to \\ the Department of Mathematics \\ Faculty of Science \\ National University of Singapore \\ Assoc. Prof Raghavan Dilip, Supervisor \\}
+        \vspace*{3em}
+        {by \\ \theauthor \\}
+        \vspace*{3em}
+        {\thedate}
+    \end{center}
+}
+\newenvironment{acknowledgements}{\renewcommand\abstractname{Acknowledgements}\begin{abstract}} {\end{abstract}}
+\onehalfspacing
+%\singlespacing
+\begin{document}
+\let\setminus\smallsetminus
+\let\epsilon\varepsilon
+%% Cover page
+%\pagenumbering{alph}
+\begin{titlepage}
+    \makecoverpage
+\end{titlepage}
+\pagenumbering{roman}
+\phantomsection
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\begin{acknowledgements}
+    I would like to thank my supervisor, Associate Professor Dilip Raghavan for guiding me during his past year.
+
+    I would also like to thank Professor Frank Stephan, Professor Yang Yue, Dr Ashutosh Kumar, Dr Wong Tin Lok, Koo Zhengqun and Thomas Tan for guiding and supporting me throughout my journey in mathematical logic.
+\end{acknowledgements}
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Abstract}
+\begin{abstract}
+    abstract blah blah blah
+
+    %\vspace*{1cm}
+    %\noindent
+    %Subject classification \\
+    %\hspace*{2em} F.4.1 Mathematical Logic
+
+    %\vspace*{1cm}
+    %\noindent
+    %Keywords: \\
+    %\hspace*{2em} Choiceless models
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Preliminaries}
+\pagenumbering{arabic}
+Kunen says your face is bad \autocite{kunen1980}.
+
+
+
+\printbibliography[heading=bibintoc,title={References}]
+\end{document}
