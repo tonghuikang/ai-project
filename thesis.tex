@@ -16,6 +16,7 @@
 \usepackage{lmodern}
 \usepackage{setspace}
 \usepackage{amssymb,amsmath,amsthm}
+
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -41,6 +42,16 @@
 \usepackage{cleveref}
 \usepackage{graphicx}
 \graphicspath{ {./assets/} }
+
+%
+% blockquote
+%
+\definecolor{blockquote-border}{RGB}{221,221,221}
+\definecolor{blockquote-text}{RGB}{80,80,80}
+\usepackage{mdframed}
+\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,linecolor=blockquote-border,skipabove=\parskip]{customblockquote}
+\renewenvironment{quote}{\begin{customblockquote}\list{}{\rightmargin=0em\leftmargin=0em}%
+\item\relax\color{blockquote-text}\ignorespaces}{\unskip\unskip\endlist\end{customblockquote}}
 
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -73,11 +84,17 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}[theorem]{Axiom}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
 \newcommand{\set}[1]{\left\{ #1 \right\}}
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\sq}[1]{\left[ #1 \right]}
+\newcommand{\V}{\mathbf{V}}
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\ZF}{\textsf{ZF }}
+\newcommand{\ZFC}{\textsf{ZFC }}
 
 \newcommand{\makecoverpage}{
     \begin{center}
@@ -137,9 +154,7 @@
 
 \tableofcontents
 
-\chapter{Preliminaries}
-\pagenumbering{arabic}
-Kunen says your face is bad \autocite{kunen1980}.
+\include{chapters/chapter1}
 
 
 

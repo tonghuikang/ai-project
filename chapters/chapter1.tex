@@ -1,0 +1,76 @@
+\chapter{Preliminaries}
+\pagenumbering{arabic}
+\section{Historical Notes}
+
+\begin{quote}
+    The axiom of choice is probably the most interesting and, in spite of its late appearance, the most discussed axiom of mathematics,
+    second only to Euclid's axiom of parallels which was introduced more than two thousand years ago. \autocite{fraenkel1973}
+\end{quote}
+The axiom of choice was first explicitly mentioned in a paper on existence of solutions to differential equations by Giuseppe Peano in 1890,
+where he alluded to its negation.
+
+Circa 1901, Georg Cantor and Felix Bernstein were trying to construct a bijection between the continuum and the set of all countable order types (Cantor-Bernstein theorem), when they faced difficulty. Beppe Levi suggested to resolve the difficulty by introducing choice which he formulated in a general form.
+
+The first explicit formulation of choice was by Zermelo in 1904, where he used it to prove the well-ordering theorem.
+However, back then the set-theoretical notions of ordered pair and function were not yet defined, so he formulated it using a looser notion of ``functional correspondence''.
+
+In 1906, Bertrand Russell formulated a modern form of choice, which states that \(\prod t\) is nonempty if \(t\) is a disjointed set and it does not contain the empty set.
+
+% https://plato.stanford.edu/entries/axiom-choice/
+
+Zermelo's 1904 introduction of the axiom was very controversial for its day, mathematicians of that time objected to its non-constructive nature.
+While the axiom asserts the possibility of making infinitely many, or even uncountably many ``choices'', it gives no procedure on how those choices could be made.
+
+As the debate raged on, it became apparent that a number of significant mathematical results hinges on the axiom.
+David Hilbert notably regarded choice as an ``indispensible'' principle of mathematics.
+
+Another source of objections is that the axiom of choice is a source of unintuitive and unpleasant antimonies and paradoxes,
+theorems which are not in line with our ``common sense'' intuition.
+The most spectacular of these was Banach and Tarski's \emph{paradoxical decomposition of the sphere},
+where one cuts a ball into finitely many pieces, rearranges them, and gets two balls each of same size as the original one.
+Another consequence is the existence of Vitali set, a set of real numbers which is not Lebesgue measurable.
+
+It was not until 1930s that Kurt Gödel proved the relative consistency of Choice with respect to the other axioms of set theory.
+This puts the soundness problem to rest by showing that adding Choice to \ZF does not make the theory any less consistent.
+
+For a detailed history of the Axiom of Choice, see \autocite{moore1982} and \autocite{fraenkel1973} II \S 4.
+
+\section{ZFC Axioms}
+
+For completeness, we shall list the axioms of \ZFC (shorthand for Zermelo-Fraenkel Set Theory with Axiom of Choice).
+\ZFC is a first order theory in the language with a single binary symbol \(\in\).
+The theory attempts to encapsulate what holds true in the structure \((\V,\in)\) where \(\V\) is the ``universe of all sets''.
+
+\begin{axiom}[Extensionality]
+    \[ \forall x \forall y \left( \forall z\left(z\in x\leftrightarrow z\in y\right) \rightarrow x = y \right). \]
+\end{axiom}
+
+\begin{axiom}[Foundation]
+    \[ \forall x \sq{ \exists y \paren{y\in x} \to \exists y \paren{y\in x\land \lnot\exists z\paren{z\in x\land x\in y}} } .\]
+\end{axiom}
+
+\begin{axiom}[Comprehension Scheme]
+    For each formula \(\phi\) with free variables \(x,z,w_1,\dots,w_n\),
+    \[ \forall z \forall w_1,\dots,w_n\ \exists y\ \forall x\paren{x\in y\leftrightarrow x\in z\land \phi}. \]
+\end{axiom}
+\begin{axiom}[Pairing]
+    \[\forall x\ \forall y\ \exists z\paren{x\in z\land y\in z}.\]
+\end{axiom}
+\begin{axiom}[Union]
+    \[\forall\mathcal{F}\ \exists A\ \forall Y\ \exists x\paren{x\in Y\land Y\in\mathcal{F}\to x\in A}. \]
+\end{axiom}
+\begin{axiom}[Replacement Scheme]
+    For each formula \(\phi\) with free variables \(x,y,A,w_1,\dots,w_n\), \[ \forall A\ \forall w_1,\dots,w_n \sq{\forall x\in A\ \exists! y\ \phi \to \exists Y\ \forall x\in A\ \exists y\in Y\ \phi} .\]
+\end{axiom}
+\begin{axiom}[Infinity]
+    \[\exists x\paren{0\in x\land \forall y\in x\paren{y\cup\set{y} \in x}}. \]
+\end{axiom}
+\begin{axiom}[Power Set]
+    \[\forall x\ \exists y\ \forall z\paren{z\subseteq x\to z\in y}.\]
+\end{axiom}
+\begin{axiom}[Choice]
+    \[ \forall A\ \exists R \paren{R \text{ well-orders } A}. \]
+\end{axiom}
+
+
+i like pie \autocite{kunen1980}

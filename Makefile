@@ -1,12 +1,18 @@
-IMAGE_NAME=qjqqyy/thesis-build
+IMAGE_NAME	= qjqqyy/thesis-build
+LATEXMK		= docker run $(DOCKER_RUN_ARGS) $(IMAGE_NAME)
+DOCKER_RUN_ARGS	= --rm --volume "$(CURDIR):/data"
 
 dummy:
 
-thesis.pdf: thesis.tex
-	docker run --rm --volume "$(PWD):/data" $(IMAGE_NAME)
+thesis.pdf: thesis.tex $(shell find chapters -type f)
+	$(LATEXMK)
+
+clean:
+	$(LATEXMK) -CA
 
 docker-interactive:
-	docker run --rm -it --volume "$(PWD):/data" --entrypoint ash $(IMAGE_NAME)
+	docker run -it --entrypoint ash $(DOCKER_RUN_ARGS) $(IMAGE_NAME)
 
 docker-build:
 	docker build -t $(IMAGE_NAME) .
+	yes | docker image prune
