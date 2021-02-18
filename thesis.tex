@@ -43,6 +43,8 @@
 \usepackage{graphicx}
 \graphicspath{ {./assets/} }
 
+\usepackage[shortlabels]{enumitem}
+
 %
 % blockquote
 %
@@ -88,13 +90,20 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\newcommand{\set}[1]{\left\{ #1 \right\}}
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\sq}[1]{\left[ #1 \right]}
-\newcommand{\V}{\mathbf{V}}
-\newcommand{\paren}[1]{\left(#1\right)}
-\newcommand{\ZF}{\textsf{ZF }}
-\newcommand{\ZFC}{\textsf{ZFC }}
+\newcommand*{\set}[1]{\left\{ #1 \right\}}
+\newcommand*{\abs}[1]{\left\lvert #1 \right\rvert}
+\renewcommand*{\angle}[1]{\left\langle#1\right\rangle}
+\newcommand*{\sq}[1]{\left[ #1 \right]}
+\newcommand*{\paren}[1]{\left(#1\right)}
+
+\newcommand*{\V}{\mathbf{V}}
+
+\usepackage{xspace}
+\newcommand*{\ZF}{\mbox{\normalfont \textsf{ZF}}\xspace}
+\newcommand*{\ZFminus}{\ensuremath{\mbox{\normalfont \textsf{ZF}}^-}\xspace}
+\newcommand*{\ZFC}{\mbox{\normalfont \textsf{ZFC}}\xspace}
+\newcommand*{\ZFCminus}{\ensuremath{\mbox{\normalfont \textsf{ZFC}}^-}\xspace}
+
 
 \newcommand{\makecoverpage}{
     \begin{center}
@@ -116,7 +125,7 @@
         {\thedate}
     \end{center}
 }
-\newenvironment{acknowledgements}{\renewcommand\abstractname{Acknowledgements}\begin{abstract}} {\end{abstract}}
+\newenvironment*{acknowledgements}{\renewcommand\abstractname{Acknowledgements}\begin{abstract}} {\end{abstract}}
 \onehalfspacing
 %\singlespacing
 \begin{document}
@@ -155,6 +164,7 @@
 \tableofcontents
 
 \include{chapters/chapter1}
+\include{chapters/chapter2}
 
 
 

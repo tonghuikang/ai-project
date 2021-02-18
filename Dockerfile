@@ -1,6 +1,7 @@
 FROM pandoc/latex
 
-RUN tlmgr install latexmk xpatch tabu cleveref mdframed zref needspace
+RUN tlmgr update --self && \
+    tlmgr install latexmk xpatch tabu cleveref mdframed zref needspace enumitem
 
 ENTRYPOINT ["latexmk"]
 CMD ["-pdflua"]

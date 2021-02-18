@@ -35,6 +35,7 @@ This puts the soundness problem to rest by showing that adding Choice to \ZF doe
 
 For a detailed history of the Axiom of Choice, see \autocite{moore1982} and \autocite{fraenkel1973} II \S 4.
 
+
 \section{ZFC Axioms}
 
 For completeness, we shall list the axioms of \ZFC (shorthand for Zermelo-Fraenkel Set Theory with Axiom of Choice).
@@ -43,34 +44,61 @@ The theory attempts to encapsulate what holds true in the structure \((\V,\in)\)
 
 \begin{axiom}[Extensionality]
     \[ \forall x \forall y \left( \forall z\left(z\in x\leftrightarrow z\in y\right) \rightarrow x = y \right). \]
+    Extensionality tells us that two sets are equal if and only if they have the same members.
 \end{axiom}
 
 \begin{axiom}[Foundation]
     \[ \forall x \sq{ \exists y \paren{y\in x} \to \exists y \paren{y\in x\land \lnot\exists z\paren{z\in x\land x\in y}} } .\]
+    Foundation says that every nonempty \(x\) has a \(\in\)-minimal member.
 \end{axiom}
 
 \begin{axiom}[Comprehension Scheme]
     For each formula \(\phi\) with free variables \(x,z,w_1,\dots,w_n\),
     \[ \forall z \forall w_1,\dots,w_n\ \exists y\ \forall x\paren{x\in y\leftrightarrow x\in z\land \phi}. \]
+    As an axiom scheme, for well-formed logical formula \(\phi\), there is an instance of the axiom.
+    Intuitively it states that for every set \(z\) and property \(\phi(x, z, \overline{w})\), there is a subset \(y\) of \(z\) whose members are precisely those \(x\in z\) for which \(\phi(x)\) holds. We denote \(y\) as \[ \set{x\in z: \phi} .\]
+    Comprehension allows us to define the empty set \(0 = \set{x: x\ne x}\).
 \end{axiom}
+
 \begin{axiom}[Pairing]
     \[\forall x\ \forall y\ \exists z\paren{x\in z\land y\in z}.\]
+    Together with axiom of comprehension, it follows that \(\set{x,y}\) exists.
 \end{axiom}
+
 \begin{axiom}[Union]
     \[\forall\mathcal{F}\ \exists A\ \forall Y\ \exists x\paren{x\in Y\land Y\in\mathcal{F}\to x\in A}. \]
+    This axiom says that for every set \(\mathcal{F}\), there is a set \(A\) which contains the union of all the sets in \(\mathcal{F}\).
+    Together with axiom of comprehension, it implies that every set has a union.
 \end{axiom}
+
 \begin{axiom}[Replacement Scheme]
     For each formula \(\phi\) with free variables \(x,y,A,w_1,\dots,w_n\), \[ \forall A\ \forall w_1,\dots,w_n \sq{\forall x\in A\ \exists! y\ \phi \to \exists Y\ \forall x\in A\ \exists y\in Y\ \phi} .\]
+    Replacement says that if there is a formula \(\phi(x,y,A)\) which defines a ``function'' \(x\mapsto y\) on the set \(A\),
+    then there exists a set \(B\) which contains the image of this ``function'' on \(A\).
 \end{axiom}
+
 \begin{axiom}[Infinity]
     \[\exists x\paren{0\in x\land \forall y\in x\paren{y\cup\set{y} \in x}}. \]
+    Infinity asserts the existence of \(\omega\) the set of all natural numbers.
 \end{axiom}
+
 \begin{axiom}[Power Set]
     \[\forall x\ \exists y\ \forall z\paren{z\subseteq x\to z\in y}.\]
 \end{axiom}
+
 \begin{axiom}[Choice]
     \[ \forall A\ \exists R \paren{R \text{ well-orders } A}. \]
 \end{axiom}
 
+Nevertheless, there are mathematicians who either do not ``believe in'' the axiom of choice or who are interested in the logical repercussions of disallowing this axiom in their set theory.
 
-i like pie \autocite{kunen1980}
+Throughout this thesis, \ZFC will denote the theory of all the above axioms, \ZF will denote \ZFC without Choice,
+and \ZFCminus and \ZFminus denotes \ZFC and \ZF respectively, but without foundation.
+
+\section{todo}
+
+\begin{itemize}
+    \item consistency proofs
+    \item relativisation
+    \item absoluteness
+\end{itemize}
