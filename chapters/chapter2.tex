@@ -1,4 +1,5 @@
 \chapter{Basic Fraenkel Model}
+\label{chapter:fraenkelmostowski}
 
 The basic Fraenkel model is not a model of \ZF where choice fails, but rather a model of \textsf{ZFA}, that is \ZF with atoms, or urelements, where choice fails.
 The methods used here were introduced by Fraenkel in 1922 and further developed by Mostowski in 1938,
@@ -6,28 +7,9 @@ which is over 30 years before the development of forcing.
 This model offers a good primer on how choice can fail due to its relative technical simplicity.
 
 \section{ZF with atoms}
-\newcommand*{\M}{\mathbf{M}}
-\newcommand*{\E}{\mathbf{E}}
 
 This section will introduce the theory \textsf{ZFA}, that is \ZF with atoms and
 show that in \ZFC, one can produce a model of \textsf{ZFA} with infinitely many atoms.
-
-We first need a more formal treatment of relativization.
-Instead of just a single formula definining all bound logical operators,
-we also want flexibility in re-defining the membership relation.
-Hence, a relative interpretation of set theory is given by two formulas,
-\(\mathbf{M}(x)\) and \(\mathbf{E}(x,y)\), with free variables indicated.
-Now we can make precise the notion of truth in \(\mathbf{M},\mathbf{E}\),
-\begin{definition}
-    Let \(\mathbf{M}(x)\) and \(\mathbf{E}(x,y)\) be formulae no free variables other than the ones indicated,
-    and \(\phi\) be a formula in first-order logic. We define \(\phi^{\mathbf{M},\mathbf{E}}\) by induction on the complexity of \(\phi\),
-    \begin{enumerate}[(a)]
-        \item \((x\in y)^{\M,\E}\) is \(\E(x,y)\).
-        \item \((\phi\land\psi)^{\M,\E}\) is \(\phi^{\M,\E}\land\psi^{\M,\E}\).
-        \item \((\lnot\phi)^{\M,\E}\) is \(\lnot (\phi^{\M,\E})\).
-        \item \((\exists x\ \phi)^{\M,\E}\) is \(\exists x\ (\M(x) \land \phi^{\M,\E})\).
-    \end{enumerate}
-\end{definition}
 
 \newcommand*{\F}{\mathbf{F}}
 \renewcommand*{\Im}{\operatorname{Im}}
@@ -162,20 +144,25 @@ for any \(\pi\in G\) we can naturally extend \(\pi\) to be a permutation \(\V\to
 \begin{remark}
     Formally, this definition is achieved by recursion on the \(A\)-rank of \(x\in\V\), which is \(\min_{\alpha} \set{x\in R(\alpha,A)}\).
 \end{remark}
-We can verify the following properties of \(\pi:\V\to\V\),
-\begin{enumerate}
-    \item \(x\in y\leftrightarrow \pi x \in \pi y\).
-    \item \(\pi(\set{x,y}) = \set{\pi x, \pi y}\).
-    \item \(\pi(\paren{x,y}) = \paren{\pi x, \pi y}\).
-    \item TODO: more needed?...
-\end{enumerate}
+\begin{observation}
+    The following properties hold for \(\pi:\V\to\V\),
+    \begin{enumerate}
+        \item \(x\in y\leftrightarrow \pi x \in \pi y\).
+        \item \(\pi(\set{x,y}) = \set{\pi x, \pi y}\).
+        \item \(\pi(\paren{x,y}) = \paren{\pi x, \pi y}\).
+    \end{enumerate}
+\end{observation}
 
-For each \(B\subseteq A\) we consider its stabilizer
-\[ G_B = \set{\pi\in G: \forall x\in B\paren{\pi x = x}}.\]
-Now define the class of all symmetric objects as
-\[ \mathbf{S} = \set{y:\exists B\subseteq A\paren{\abs{B}<\omega \land \forall \pi\in G_B\paren{\pi y = y}}}. \]
-Then \(\mathbf{HS} = \set{y\in \mathbf{S}:\trcl(y)\subseteq \mathbf{S}}\) will denote all \emph{hereditarily symmetric} objects.
-In this case \(\mathbf{HS}\) is what we call the \textbf{Basic Fraenkel model}.
+\begin{definition}
+    For each \(B\subseteq A\) we denote its stabilizer
+    \[ G_B = \set{\pi\in G: \forall x\in B\paren{\pi x = x}}.\]
+    Define the class of all \emph{symmetric objects} as
+    \[ \mathbf{S} = \set{y:\exists B\subseteq A\paren{\abs{B}<\omega \land \forall \pi\in G_B\paren{\pi y = y}}}. \]
+    Then \(\mathbf{HS} = \set{y\in \mathbf{S}:\trcl(y)\subseteq \mathbf{S}}\) will denote all \emph{hereditarily symmetric} objects.
+\end{definition}
+\begin{remark}
+    In this case \(\mathbf{HS}\) is what we call the \textbf{Basic Fraenkel model}.
+\end{remark}
 
 \begin{lemma}
     \(\mathbf{HS}\) is a model of \ZFminus.
@@ -188,7 +175,7 @@ In this case \(\mathbf{HS}\) is what we call the \textbf{Basic Fraenkel model}.
     type out annoying checks later
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[Fraenkel-Mostowski]
     \(A\in\mathbf{HS}\) but \(A\) cannot be ordered by \(\mathbf{HS}\), so in particular
     \(\mathbf{HS}\) is a model of \(\ZFminus + \lnot{\normalfont\textsf{Choice}}\).
 \end{theorem}

@@ -4,7 +4,7 @@ DOCKER_RUN_ARGS	= --rm --volume "$(CURDIR):/data"
 
 dummy:
 
-thesis.pdf: thesis.tex $(shell find chapters -type f)
+thesis.pdf: thesis.tex thesis.bib $(shell find chapters -type f)
 	$(LATEXMK)
 
 clean:

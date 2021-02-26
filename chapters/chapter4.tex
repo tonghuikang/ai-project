@@ -1,9 +1,8 @@
 \chapter{Solovay Model}
 
 The Solovay model is an interesting model in which choice fails.
-It might be of particular interests to analysts due to its many interesting analytical and measure-theoretic properties.
-
-more history?
+It is of particular intrigue to analysts due to its many interesting analytical and measure-theoretic properties.
+The main results were established in the Spring of 1964, just a year after Cohen's creation of forcing.
 
 \section{Lévy Collapse}
 
@@ -12,23 +11,131 @@ more history?
 \begin{definition}
     For any \(S\subseteq \mathbf{ORD}\) and \(\lambda\) regular, the \emph{Lévy collapsing order} for \(S\) is
     \[
-        \Lv(\lambda, S) = \set{p: p\text{ is a function} \land \abs{p} < \lambda \land \dom(p) \subseteq S\times\lambda
-        \land \forall (\alpha,n)\in\dom(p)\sq{p(\alpha,n)\in \alpha}}
+        \Lv(\lambda, S) = \set{
+            \begin{split}
+                p: &\ p\text{ is a function} \\
+                   &\land \abs{p} < \lambda \\
+                   &\land \dom(p) \subseteq S\times\lambda \\
+                   &\land \forall (\alpha,\xi)\in\dom(p)\sq{p(\alpha,\xi) = 0 \lor p(\alpha,\xi)\in \alpha}
+            \end{split}
+        }
     \]
     ordered by reverse inclusion.
 \end{definition}
+\begin{remark}
+    Forcing with the Lévy collapse will add surjections \(\lambda\to\alpha\) for each \(\alpha\in S\).
+    For example, forcing with \(\Lv(\omega,\kappa)\) will make \(M[G]\models \kappa = \omega_1\).
+\end{remark}
 
-Cue various properties of Lévy collapse.
+\begin{lemma}[10.17 in {\autocite[127]{kanamori2003}}]
+    Elementary properties of the Lévy collapsing order,
+    \begin{enumerate}[(a)]
+        \item \(\Lv(\lambda,S)\) is \(\lambda\)-closed.
+        \item Suppose that \(S = X\cup Y\) is a disjoint union,
+            and set \(\P_0 = \Lv(\lambda,X)\) and \(\P_1 = \Lv(\lambda,Y)\).
+            Then \(G\) is \(\Lv(\lambda,S)\)-generic iff \(G\) is of the form
+            \[G = \set{p\cup q: p\in G_0\land q\in G_1 }\]
+            where \(G_0\) is \(\P_0\)-generic, \(\paren{\P_1}^{M[G_0]} = \P_1\),
+            and \(G_1\) is \(\P_1\)-generic over \(M[G_0]\).
+        \item If \(\kappa\) is regular, \(\kappa > \lambda\) and either \(\kappa\) is inaccessible or \(\lambda = \omega\),
+            then \(\Lv(\lambda,\kappa)\) has the \(\kappa\)-c.c.
+        \item Forcing with \(\Lv(\lambda,\kappa)\) when it has \(\kappa\)-c.c. will preserve cardinals \(\leq \lambda\) and \(\geq \kappa\).
+        \item Suppose \(\kappa\) is regular, \(\Lv(\lambda,\kappa)\) has the \(\kappa\)-c.c., and
+            \(G\) is \(\Lv(\lambda,\kappa)\)-generic.
+            Then for any \(x\in M[G]\) with \(x:\gamma \to \mathbf{ORD}\) where \(\gamma < \kappa\),
+            there is a \(\delta<\kappa\) such that \(x\in M\sq{G\cap\Lv(\lambda,\delta)}\).
+    \end{enumerate}
+\end{lemma}
 
-* Collapsing kappa to omega1
+Part (b) is result of Solovay's demonstration that forcing with a product poset is basically iterated forcing.
 
-* Preserving all cardinals above
+\begin{proposition}
+    \(\Lv(\lambda,S)\) is weakly homogeneous.
+\end{proposition}
+\begin{proof}
+    Let \(p,q\in\Lv(\lambda,S)\), as \(\lambda\) is regular we can find a bijection \(f:\lambda\to\lambda\) such that
+    for all \((\alpha,\xi)\in\dom(p), (\beta,\zeta)\in\dom(q)\), we have \(f(\xi) \ne \zeta\).
+    We can extend \(f\) into an automorphism \(\pi:\P\to\P\) as follows
+    \[ \pi(r) = \paren{\alpha,\xi}\mapsto r\paren{\alpha, f^{-1}(\xi)} \]
+    where \(\pi(r)\paren{\alpha,\xi}\) is undefined when \(r\paren{\alpha,f^{-1}(\xi)}\) is.
+    Then by our selection of \(f\), we can see that \(\dom(\pi(p)) \cap\dom(q) = 0\) so \(\pi(p)\) and \(q\) are compatible.
+\end{proof}
 
-* Being able to collapse in stages
+\begin{lemma}
+    Suppose \(\kappa>\omega\) is regular and \(G\) is \(\Lv(\omega,\kappa)\)-generic.
+    For any \(f:\omega\to\mathbf{ORD}\), \(f\in M[G]\),
+    there is a \(M[G]\)-generic filter \(H\) on \(\Lv(\omega,\kappa)\)
+    such that \(M[G] = M[f][H]\).
+\end{lemma}
+%\begin{proof}
+Solovay called this ``an important lemma''.
+%TODO: fill in
+%\end{proof}
 
 
-\section{Measure Theory}
+
+
+
 
 \section{Random Reals}
 
+\newcommand*{\B}{{\mathcal{B}}}
+
+TODO: a few more measure theory definitions
+
+Instead of using finite partial functions, we force with the \(\sigma\)-algebra of Borel sets.
+Let \[ \B^* = \set{ X: X \text{ is a non-null Borel set}} \]
+be ordered by inclusion.
+
+\begin{definition}[Coding Borel sets]
+    Each \(c:\omega\to\omega\) can encode a Borel set as follows
+    % TODO
+    \[ A_c = \dots \]
+\end{definition}
+
+\begin{proposition}
+    The \(\sigma\)-algebra operations (countable union, subset, complement, isEmpty) on\(A_c\) are absolute,
+    its Lebesgue measure is absolute.
+\end{proposition}
+
+Now \(\B^*\)-forcing can be characterized as adding a single \emph{random real}.
+
+\begin{theorem}
+    Suppose \(M\) is ctm and \(G\) is \(\B^*\)-generic,
+    then there is a unique real \(r\) such that for any closed code \(c\in M\),
+    \[ r\in A_c^{M[G]} \text{ iff } A_c^M \in G, \]
+    and \(M[r] = M[G]\).
+\end{theorem}
+
+The unique \(r\) is called a \emph{random real},
+we say \(r\) is \emph{random over} \(M\)..
+
+\begin{theorem}
+    Suppose \(M\) is a ctm. A real \(r\) is random over \(M\) iff
+    \(r\notin A_c\) for any \(c\in M\) which is a \(G_\delta\) code for a null set.
+\end{theorem}
+
 \section{Solovay's Theorem}
+
+\begin{definition}
+    A set \(X\) is \emph{definable from a countable sequence of ordinals} iff
+    for some \(s:\omega\to\mathbf{ORD}\) and some formula \(\phi(x_1,x_2)\),
+    \[ y\in X \text{ iff } \phi(s,y). \]
+\end{definition}
+\begin{remark}
+    Formally, to avoid quantifying over all logical formulas in the metatheory we use reflection.
+\end{remark}
+
+\begin{proposition}
+    Hereditarily \(\omega\)-ordinal definable is an inner model of \(\ZF\).
+\end{proposition}
+
+\begin{lemma}
+    For each formula \(\phi(x)\), there is a \(\tilde{\phi}(x)\) such that
+    for any \(s:\omega\to\mathbf{ORD}, s\in M[G]\),
+    \[ M[G]\models \phi(s) \text{ iff } M[x] \models \tilde{\phi}(s). \]
+\end{lemma}
+
+\begin{theorem}
+    Insert Solovay theorem here.
+\end{theorem}

@@ -95,11 +95,61 @@ Nevertheless, there are mathematicians who either do not ``believe in'' the axio
 Throughout this thesis, \ZFC will denote the theory of all the above axioms, \ZF will denote \ZFC without Choice,
 and \ZFCminus and \ZFminus denotes \ZFC and \ZF respectively, but without foundation.
 
-\section{todo}
+\section{Known Results}
 
-\begin{itemize}
-    \item consistency proofs
-    \item relativisation
-    \item absoluteness
-    \item L and how it proves choice (just state it)
-\end{itemize}
+For a detailed exposition of set theory, consistency proofs, and independence we refer the reader to \autocite{kunen1980}.
+
+\subsection{Relativization}
+
+
+\newcommand*{\M}{\mathbf{M}}
+\newcommand*{\E}{\mathbf{E}}
+\renewcommand*{\models}{\vDash}
+\newcommand*{\Axiom}[1]{{\normalfont\textsf{#1}}}
+
+
+The point of relativization is to define a notion of truth in a subuniverse.
+If \(\mathbf{M}(x)\) and \(\mathbf{E}(x,y)\) are two formulas with free variables indicated,
+we can make precise the notion of truth in \(\mathbf{M},\mathbf{E}\).
+\begin{definition}
+    Let \(\mathbf{M}(x)\) and \(\mathbf{E}(x,y)\) be formulae no free variables other than the ones indicated.
+    For any formula \(\phi\), we define \(\phi^{\mathbf{M},\mathbf{E}}\), the \emph{relativization} of \(\phi\) to \((\M,\E)\),
+    by induction on the complexity of \(\phi\),
+    \begin{enumerate}[i.]
+        \item \((x\in y)^{\M,\E}\) is \(\E(x,y)\).
+        \item \((\phi\land\psi)^{\M,\E}\) is \(\phi^{\M,\E}\land\psi^{\M,\E}\).
+        \item \((\lnot\phi)^{\M,\E}\) is \(\lnot (\phi^{\M,\E})\).
+        \item \((\exists x\ \phi)^{\M,\E}\) is \(\exists x\ (\M(x) \land \phi^{\M,\E})\).
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    Most of the time (except in parts of \Cref{chapter:fraenkelmostowski}), we do not re-interpret \(\in\),
+    so for the majority of applications, it turns out that \(\E(x,y) = x\in y\),
+    then \(\phi^\M\) denotes \(\phi^{\M,\in}\).
+\end{remark}
+
+\begin{definition}
+    Let \(\M\) be a class.
+    \begin{enumerate}[i.]
+        \item For a sentence \(\phi\), \(\M\models\phi\) means \(\phi^\M\).
+        \item For a set of sentences \(S\), \(\M\models S\) means \(\M\models\phi\) for each sentence \(\phi\) in \(S\).
+    \end{enumerate}
+\end{definition}
+
+We need the following textbook results from \autocite{kunen1980} and (possibly jech?)
+
+\begin{lemma}
+    If \(\M\) is transitive then \(\M\models\Axiom{Extensionality}\).
+\end{lemma}
+
+<insert more results that I use>
+
+\subsection{Consistency proofs}
+
+A well-known example of relative consistency and independence from outside set theory is that of Euclid's parallel postulate.
+For thousands of years...
+
+\subsection{Constructible universe and choice}
+\label{subsection:constructible}
+
+gloss over \(\mathbf{L}\)

@@ -1,12 +1,53 @@
 \chapter{Cohen Models}
 
-Paul Cohen invented forcing to deal with CH in 1963 and used it to prove the independence of Choice from \ZF and the independence of CH from \ZFC.
+Paul Cohen invented forcing to deal with CH in 1963.
+He used it to prove the independence of Choice from \ZF and the independence of CH from \ZFC.
 TODO: more history
 % cohen essay here: http://www.logic.univie.ac.at/~ykhomski/ST2013/The%20Discovery%20of%20Forcing.pdf
 
 \section{Forcing}
+\renewcommand*{\P}{{\mathbb{P}}}
+\newcommand*{\forces}{\Vdash}
 
-TODO: here or chapter 1?
+For a detailed exposition on Forcing please see \autocite{kunen1980}.
+
+\begin{definition}
+    Let \(\P\) be a partial order and \(\pi: \P\to\P\),
+    \(\pi\) is an \emph{automorphism} on \(\P\) if
+    \begin{itemize}
+        \item \(\pi\) is a bijection,
+        \item \(\pi\) preserves \(\leq\),
+        \item \(\pi(1_{\P}) = 1_\P\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition} \label{defn:extend_automorphism_to_names}
+    Given an automorphism \(\pi:\P\to\P\),
+    it can be naturally extended into an automorphism (abusing notation) \(\pi: M^{\mathbb{P}} \to M^{\mathbb{P}}\) by
+    \[ \pi(x,p) = \set{(\pi y , \pi p ): y\in x}. \]
+\end{definition}
+
+\begin{observation}
+    If \(\pi:\P\to\P\) is an automorphism, its induced automorphism \(\pi: M^\P \to M^\P\) satisfies \(\pi(\check{x}) = \check{x}\).
+\end{observation}
+
+\begin{lemma}
+    Suppose \(\pi, \P\in M\) and \(\pi:\P\to\P\) is an automorphism, then for any formula \(\phi(x_1,\dots,x_n)\),
+    \[ p\forces \phi(\tau_1,\dots,\tau_n)\quad \text{ iff }\quad \pi(p)\forces \phi(\pi(\tau_1),\dots,\pi(\tau_n)).  \]
+\end{lemma}
+\begin{proof}
+    Specialise Lemma 7.13 in \autocite[222]{kunen1980} to automorphisms instead of poset embeddings.
+\end{proof}
+
+\begin{definition}
+    A partial order \(\P\) is \emph{almost homogeneous} iff
+    for any \(p,q\in\P\) there is an automorphism \(\pi\) on \(\P\) such that \(\pi(p)\) is compatible with \(q\).
+\end{definition}
+
+(still need to cover a bit of results)
+
+
+
 
 
 
@@ -14,28 +55,33 @@ TODO: here or chapter 1?
 
 \renewcommand*{\G}{\mathscr{G}}
 \newcommand*{\dom}{\operatorname{dom}}
-\renewcommand*{\P}{{\mathbb{P}}}
 Let \(M\) be a transitive model of ZFC, consider a set \((\mathbb{P}, \leq, 1_{\mathbb{P}}) \in M\) of forcing conditions,
 let \(\G\) be a group of automorphisms \(\mathbb{P} \to \mathbb{P}\).
-Each \(\pi\in \G\) can be naturally extended into an automorphism \(\pi: M^{\mathbb{P}} \to M^{\mathbb{P}}\) by
-\[ \pi(x,p) = \set{(\pi_* y , \pi p ): y\in x}. \]
+Each \(\pi\in \G\) can be naturally extended into an automorphism on \(M^\P\) as per \Cref{defn:extend_automorphism_to_names}.
 
 \begin{definition}
     Let \(\mathscr{F}\) be a nonempty set of subgroups of \(\G\).
-    \(\mathscr{F}\) is a \textbf{normal filter} iff it is a filter and is also closed under congujation, that is
+    \(\mathscr{F}\) is a \emph{normal filter} iff it is a filter and is also closed under conjugation, that is
     if \(\pi\in \G\) and \(H\in\mathscr{F}\) then \(\pi H \pi^{-1} \in\mathscr{F}\).
 \end{definition}
-Given a normal filter \(\mathscr{F}\) we can use it to define the notion of *symmetric*.
+Given a normal filter \(\mathscr{F}\) we can use it to define the notion of \emph{symmetric}.
 \begin{definition}
-    A \(\mathbb{P}\)-name \(x\in M^{\mathbb{P}}\) is \textbf{symmetric} if its stabilizer \(\G_x = \set{\pi: \pi x = x}\) is in \(\mathscr{F}\).
-
-    A name \(x\in M^{\mathbb{P}}\) is \textbf{hereditarily symmetric} if \(x\) is symmetric and every member in \(\dom(x)\) is hereditarily symmetric.
+    Let \(\mathscr{F}\) be a normal filter.
+    \begin{itemize}
+        \item A \(\mathbb{P}\)-name \(x\in M^{\mathbb{P}}\) is \emph{symmetric} if its stabilizer \(\G_x = \set{\pi: \pi x = x}\) is in \(\mathscr{F}\).
+        \item A name \(x\in M^{\mathbb{P}}\) is \emph{hereditarily symmetric} if \(x\) is symmetric and every member in \(\dom(x)\) is hereditarily symmetric.
+    \end{itemize}
     Denote set of hereditarily symmetric names as \(\mathbf{HS}\).
 \end{definition}
 
-Given any generic filter \(G\), consider the subset of \(M[G]\) formed by evaluating all the names in \(\mathbf{HS}\),
-\[ N = \set{ x[G]: x\in M^{\mathbb{P}} }. \]
-Observe that we have the embeddings \(M \subseteq N \subseteq M[G]\).
+\begin{definition}
+    Now given any generic filter \(G\), we define the \emph{symmetric extension}
+    by considering the subset of \(M[G]\) formed by evaluating all the names in \(\mathbf{HS}\),
+    \[ N = \set{ x[G]: x\in M^{\mathbb{P}} }. \]
+\end{definition}
+\begin{observation}
+    We have the embeddings \(M \subseteq N \subseteq M[G]\).
+\end{observation}
 
 \begin{theorem}
     \(N\) is a model of \ZF.
@@ -47,7 +93,8 @@ Observe that we have the embeddings \(M \subseteq N \subseteq M[G]\).
 \section{Basic Cohen Model}
 
 The Basic Cohen Model was the first model produced in which choice fails.
-Together with Gödel's earlier results on \(\mathbf{L}\), this completes the proof of the independence of choice.
+Together with Gödel's earlier results on \(\mathbf{L}\) (see \Cref{subsection:constructible}),
+this completes the proof of the independence of choice.
 
 We force with \(\mathbb{P} = \operatorname{Fn}(\omega\times\omega, 2)\)
 the set of finite partial functions \(\omega\times\omega \rightharpoonup 2\),
@@ -115,7 +162,7 @@ Now we can find \(\pi\in\G\) satisfying
     \item \(\pi \in \G_B\),
     \item \(\pi n\ne n\).
 \end{enumerate}
-Then \(\pi p \Vdash (\pi \mathring{f})(\pi \check{i}) = \pi \mathring{x}_{n}\), so
+Then (by TODO cite the known result) \(\pi p \Vdash (\pi \mathring{f})(\pi \check{i}) = \pi \mathring{x}_{n}\), so
 \[p \cup \pi p \Vdash \mathring{f}(\check{i}) = \mathring{x}_n \land \mathring{f}(\check{i}) = \mathring{x}_{\pi n}. \]
 This contradiction completes the proof.
 \end{proof}
@@ -208,5 +255,5 @@ Let \(\pi\) be extended from
 \end{align*}
 
 With \(\pi\) obtained, use similar forcing argument as Cohen basic model to get
-\[ N\models f\text{ is not a function}.\]
+\[ N\models f\text{ is not a function}. \tag*{\qedhere} \]
 \end{proof}
