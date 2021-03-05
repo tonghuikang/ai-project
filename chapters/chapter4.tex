@@ -4,8 +4,11 @@ The Solovay model is an interesting model in which choice fails.
 It is of particular intrigue to analysts due to its many interesting analytical and measure-theoretic properties.
 The main results were established in the Spring of 1964, just a year after Cohen's creation of forcing.
 
+* On top of introducing solovay model, the paper also introduced the method of generic filters and boolean valued models
+
 \section{Lévy Collapse}
 
+Lévy collapse was one of the first applications of forcing...
 
 \newcommand*{\Lv}{\operatorname{Lv}}
 \begin{definition}
@@ -27,7 +30,21 @@ The main results were established in the Spring of 1964, just a year after Cohen
     For example, forcing with \(\Lv(\omega,\kappa)\) will make \(M[G]\models \kappa = \omega_1\).
 \end{remark}
 
-\begin{lemma}[10.17 in {\autocite[127]{kanamori2003}}]
+We have an immediate consequence of the definition.
+% move this?
+\begin{proposition}
+    \(\Lv(\lambda,S)\) is almost homogeneous.
+\end{proposition}
+\begin{proof}
+    Let \(p,q\in\Lv(\lambda,S)\), as \(\lambda\) is regular we can find a bijection \(f:\lambda\to\lambda\) such that
+    for all \((\alpha,\xi)\in\dom(p), (\beta,\zeta)\in\dom(q)\), we have \(f(\xi) \ne \zeta\).
+    We can extend \(f\) into an automorphism \(\pi:\P\to\P\) as follows
+    \[ \pi(r) = \paren{\alpha,\xi}\mapsto r\paren{\alpha, f^{-1}(\xi)} \]
+    where \(\pi(r)\paren{\alpha,\xi}\) is undefined when \(r\paren{\alpha,f^{-1}(\xi)}\) is.
+    Then by our selection of \(f\), we can see that \(\dom(\pi(p)) \cap\dom(q) = 0\) so \(\pi(p)\) and \(q\) are compatible.
+\end{proof}
+
+\begin{lemma}[10.17 in {\autocite[127]{kanamori2003}}] \label{lemma:levy_elementary}
     Elementary properties of the Lévy collapsing order,
     \begin{enumerate}[(a)]
         \item \(\Lv(\lambda,S)\) is \(\lambda\)-closed.
@@ -42,37 +59,81 @@ The main results were established in the Spring of 1964, just a year after Cohen
         \item Forcing with \(\Lv(\lambda,\kappa)\) when it has \(\kappa\)-c.c. will preserve cardinals \(\leq \lambda\) and \(\geq \kappa\).
         \item Suppose \(\kappa\) is regular, \(\Lv(\lambda,\kappa)\) has the \(\kappa\)-c.c., and
             \(G\) is \(\Lv(\lambda,\kappa)\)-generic.
-            Then for any \(x\in M[G]\) with \(x:\gamma \to \mathbf{ORD}\) where \(\gamma < \kappa\),
-            there is a \(\delta<\kappa\) such that \(x\in M\sq{G\cap\Lv(\lambda,\delta)}\).
+            Then for any \(s\in M[G]\) with \(s:\gamma \to \mathbf{ORD}\) where \(\gamma < \kappa\),
+            there is a \(\delta<\kappa\) such that \(s\in M\sq{G\cap\Lv(\lambda,\delta)}\).
     \end{enumerate}
 \end{lemma}
 
-Part (b) is result of Solovay's demonstration that forcing with a product poset is basically iterated forcing.
+\begin{remark}
+%    Part (b) is result of Solovay's demonstration that forcing with a product poset is basically iterated forcing.
 
-\begin{proposition}
-    \(\Lv(\lambda,S)\) is weakly homogeneous.
-\end{proposition}
+    Part (e) tells us that when forcing with \(\Lv(\lambda,\kappa)\),
+    the collapse can be decomposed into stages, and
+    any \(<\kappa\) sequence of ordinals will be introduced at some earlier stage.
+    This will be made precise in Solovay's ``important lemma''.
+\end{remark}
+
+
+Another ingredient of Solovay's important lemma is this characterisation of \(\Lv(\omega,\set{\alpha})\),
+this characterisation can be thought of as a partial converse to the collapsing nature of \(\Lv(\omega,\set{\alpha})\),
+it says that a partial order which collapses \(\alpha\) into \(\omega\) is ``basically'' \(\Lv(\omega,\set{\alpha})\)
+in the sense that both posets structurally share a common dense subset.
+More precisely,
+\begin{lemma}\label{lemma:characterisation_collapse}
+    Suppose \(M\models \abs{\P} \leq \abs{\alpha}\) and
+    \[ 1_\P \forces \exists f\paren{f:\omega\to\alpha \text{ is onto}}.\]
+    Then there is a dense subset \(D_\alpha\subseteq \Lv(\omega,\set{\alpha})\)
+    and an injective embedding \(D_\alpha \to \P\) whose image is dense.
+\end{lemma}
 \begin{proof}
-    Let \(p,q\in\Lv(\lambda,S)\), as \(\lambda\) is regular we can find a bijection \(f:\lambda\to\lambda\) such that
-    for all \((\alpha,\xi)\in\dom(p), (\beta,\zeta)\in\dom(q)\), we have \(f(\xi) \ne \zeta\).
-    We can extend \(f\) into an automorphism \(\pi:\P\to\P\) as follows
-    \[ \pi(r) = \paren{\alpha,\xi}\mapsto r\paren{\alpha, f^{-1}(\xi)} \]
-    where \(\pi(r)\paren{\alpha,\xi}\) is undefined when \(r\paren{\alpha,f^{-1}(\xi)}\) is.
-    Then by our selection of \(f\), we can see that \(\dom(\pi(p)) \cap\dom(q) = 0\) so \(\pi(p)\) and \(q\) are compatible.
+    TODO
 \end{proof}
 
-\begin{lemma}
+\begin{corollary}
+    The conclusion of the lemma shows that \(\P\) and \(\Lv(\omega,\set{\alpha})\) are structurally similar,
+    so if \(G\) is \(\P\)-generic, then there exists a \(\Lv(\omega,\set{\alpha})\)-generic filter \(H\) with \(M[G] = M[H]\),
+    and vice-versa.
+\end{corollary}
+
+
+\newcommand*{\Q}{{\mathbb{Q}}}
+We now prove a key technical fact about the generic extension of the Lévy collapse
+which allows us to enlarge the ground model of Lévy's construction to absorb a specified real of the extension.
+\begin{lemma}[Solovay's ``important lemma''] \label{lemma:important}
     Suppose \(\kappa>\omega\) is regular and \(G\) is \(\Lv(\omega,\kappa)\)-generic.
-    For any \(f:\omega\to\mathbf{ORD}\), \(f\in M[G]\),
-    there is a \(M[G]\)-generic filter \(H\) on \(\Lv(\omega,\kappa)\)
-    such that \(M[G] = M[f][H]\).
+    For any \(s:\omega\to\mathbf{ORD}\), \(s\in M[G]\),
+    there is a \(\Lv(\omega,\kappa)\)-generic filter \(H\) over \(M[s]\)
+    such that \(M[G] = M[s][H]\).
 \end{lemma}
-%\begin{proof}
-Solovay called this ``an important lemma''.
-%TODO: fill in
-%\end{proof}
+\begin{proof}
+    Apply \Cref{lemma:levy_elementary} (e), let \(\delta<\kappa\) such that \(s \in M[G\cap\Lv(\omega,\delta)]\).
+    Decompose the collapse into stages by defining
+    \begin{align*}
+        G_0 &= G\cap\Lv(\omega,\delta), \\
+        G_1 &= G\cap\Lv(\omega,\set{\delta}), \\
+        G_2 &= G\cap\Lv(\omega,\kappa\setminus(\delta+1)).
+    \end{align*}
 
+    By \Cref{lemma:levy_elementary} (b), \(G_0\) is generic over \(\Lv(\omega,\delta)\),
+    applying intermediate model property (\Cref{proposition:intermediate_model_property})
+    we have \(M[G_0] = M[s][H_0]\) where \(\P\in M[s]\) and \(H_0\) is generic over \(\P\).
 
+    Let \(\Q = \P\times\Lv(\omega,\set{\delta}) \in M[s]\),
+    by \Cref{lemma:iterated_forcing_product}, \(M[s][H_0][G_1]\) is \(\Q\)-generic over \(M[s]\).
+    Now
+    \[ \abs{\Q} \leq \abs{\Lv(\omega,\delta)\cup\Lv(\omega,\set{\delta})} = \abs{\Lv(\omega,\delta+1)} = \abs{\delta} \]
+    and since \(\Q\) contains a copy of \(\Lv(\omega,\set{\delta})\),
+    \[ 1_\Q \forces \exists f\paren{f:\omega\to\delta \text{ is onto}}. \]
+    Applying \Cref{lemma:characterisation_collapse}
+    there is a \(\Lv(\omega,\set{\delta})\)-generic (over \(M[s]\)) filter \(H_1\) such that \[ M[s][H_1] = M[s][H_0][G_1].\]
+
+    As also \( 1_{\Lv(\omega,\delta+1)} \forces \exists f\paren{f:\omega\to\delta \text{ is onto}} \),
+    there is a \(\Lv(\omega,\delta+1)\)-generic (over \(M[s]\)) filter \(H_2\) such that \[ M[s][H_2] = M[s][H_1]. \]
+
+    Now we can repeatedly apply \Cref{lemma:levy_elementary} (b) to get
+    \[ M[G] = M[G_0][G_1][G_2] = M[s][H_0][G_1][G_2] = M[s][H_1][G_2] = M[s][H_2][G_2] \]
+    and it happens that \(H_2 \cup G_2\) is of the form in \Cref{lemma:levy_elementary} (b), and thus generic over \(M[s]\).
+\end{proof}
 
 
 
@@ -81,61 +142,242 @@ Solovay called this ``an important lemma''.
 
 \newcommand*{\B}{{\mathcal{B}}}
 
-TODO: a few more measure theory definitions
+Here we follow set-theoretic practice and associate ``reals'' with the Cantor set \(2^\omega\).
+The definitions and results presented apply to any other standard space,
+such as Baire space \(\omega^\omega\) and real line \(\mathbb{R}\), mutatis mutandis.
 
-Instead of using finite partial functions, we force with the \(\sigma\)-algebra of Borel sets.
+\begin{definition}
+    Let \(s \in 2^{<\omega}\) be a binary string, denote \(O(s) = \set{f\in 2^\omega: f\supseteq s}\).
+\end{definition}
+\begin{proposition}
+    \(\set{O(s): s\in 2^{<\omega}}\) is a base for the topology on \(2^\omega\).
+\end{proposition}
+\begin{definition}
+    For each \(s\in 2^{<\omega}\), the Lebesgue measure of its corresponding \emph{basic open set} is defined as
+    \[ m_L(O(s)) = \frac{1}{2^{\abs{s}}}. \]
+\end{definition}
+
+As \(2^{<\omega}\) is countable, for the rest of this chapter
+we fix an enumeration \[ \Angle{\mathbf{s}_i : i\in\omega} \]
+where the enumeration is nice enough in the sense that \(\abs{\mathbf{s}_i} \leq i\),
+sequences appear after their proper initial segments, and the enumeration is computable.
+
+We have been forcing with partial functions,
+this time for a change we force with the \(\sigma\)-algebra of Borel sets.
 Let \[ \B^* = \set{ X: X \text{ is a non-null Borel set}} \]
 be ordered by inclusion.
 
 \begin{definition}[Coding Borel sets]
     Each \(c:\omega\to\omega\) can encode a Borel set as follows
-    % TODO
-    \[ A_c = \dots \]
+    \[ A_c = \begin{cases} \begin{aligned}
+        &\bigcup \set{O(\mathbf{s}_i): c(i+1)=1} &\text{if } c(0) = 0, \\
+        &2^\omega\setminus \bigcup\set{O(\mathbf{s}_i): c(i+1)=1} &\text{if } c(0) = 1, \\
+        &\bigcap_{n\in\omega} \bigcup\set{O(\mathbf{s}_i) : c(2^n3^{i+1})=1} &\text{otherwise}.
+    \end{aligned} \end{cases} \]
 \end{definition}
 
-\begin{proposition}
-    The \(\sigma\)-algebra operations (countable union, subset, complement, isEmpty) on\(A_c\) are absolute,
-    its Lebesgue measure is absolute.
+Our coding system has the following properties,
+\begin{enumerate}[i.]
+    \item If \(c(0) = 0\), \(A_c\) is open;
+    \item if \(c(0) = 1\), \(A_c\) is closed;
+    \item if \(c(0) > 1\), \(A_c\) is \(G_\delta\).
+    \item Each open, closed and \(G_\delta\) set is indexed by some code \(c\).
+\end{enumerate}
+So if \(c\) is the code for an open (resp. closed, \(G_\delta\)) set,
+we call \(c\) an \emph{open (resp. closed, \(G_\delta\)) code}.
+
+\begin{remark}
+    In Solovay's original proof \autocite{solovay1970}, he encodes all Borel sets using a more powerful scheme.
+    However, we know that every Borel set can be approximated by some \(G_\delta\) set,
+    so a simpler coding scheme that indexes all \(G_\delta\) sets suffices to prove the results we need.
+\end{remark}
+
+\begin{proposition} Let \(M\) be a transitive model of \ZF, then
+    \begin{enumerate}[(a)]
+        \item The following notions are absolute for \(M\):
+            \[ \begin{matrix}
+                A_c &;& A_c = 0 &;& A_c\subseteq A_d &;& A_c\subseteq\paren{2^\omega\setminus A_d} &;& A_c\cap A_d.
+            \end{matrix} \]
+        \item The Lebesgue measure is absolute in the sense that for any code \(c\in M\),
+            \[ m_L^M(A_c^M) = m_L(A_c).\]
+    \end{enumerate}
 \end{proposition}
+\begin{proof}
+    For part (a) note that our enumeration \(\Angle{\mathbf{s}_i}\) only mentions finitist objects so it is absolute,
+    the \(\sigma\)-algebra operations are defined in terms of \(O(\mathbf{s}_i)\), and are therefore a composition of absolute notions.
 
-Now \(\B^*\)-forcing can be characterized as adding a single \emph{random real}.
+    For (b) we case-split on \(c\),
+    \begin{enumerate}
+        \item If \(c\) is an open code, then \(A_c\) can be expressed as a disjoint union of basic open sets,
+            in fact, we can effectively compute \(J\subseteq \omega\)
+            such that \(A_c\) is written as a disjoint union \(A_c = \bigcup_{j\in J} \mathbf{s}_j\).
+            Thus \(m_L(A_c)\) can be seen to be determined absolutely.
+        \item If \(c\) is a closed code,
+            we can compute a code \(d\) such that \(A_d = 2^\omega\setminus A_c\) which is open,
+            then apply (1.) and (a).
+        \item If \(c\) is a \(G_\delta\) code,
+            we can effectively determine a sequence of open codes \(\Angle{d_n:n\in\omega}\)
+            such that \(A_c = \bigcap_n A_{d_n}\).
+            Once again we can reuse (1.) and determine \(m_L(A_c) = \inf_{n\in\omega} m_L(A_{d_n})\) absolutely.
+            \hfill\qedhere
+    \end{enumerate}
+\end{proof}
 
-\begin{theorem}
-    Suppose \(M\) is ctm and \(G\) is \(\B^*\)-generic,
-    then there is a unique real \(r\) such that for any closed code \(c\in M\),
-    \[ r\in A_c^{M[G]} \text{ iff } A_c^M \in G, \]
-    and \(M[r] = M[G]\).
+Now we have an important characterization of \(\B^*\)-forcing.
+
+\begin{theorem} \label{theorem:random_real}
+    Suppose \(G\) is \(\B^*\)-generic,
+    then there is a unique real \(x \in 2^\omega\) such that for any closed code \(c\in M\),
+    \[ x\in A_c^{M[G]} \text{ iff } A_c^M \in G, \]
+    and \(M[x] = M[G]\).
 \end{theorem}
+\begin{proof}
+    Since every Borel set can be approximated by a closed set, for each \(n\in\omega\), the set
+    \begin{equation} \label{eqn:borel_algebra_dense}
+        \set{C\in \B^*: C\text{ is closed} \land \paren{\exists k\in2}\paren{\forall f\in C}\paren{f(n) = k} }\quad\text{ is dense.}
+    \end{equation}
+    Also, for any Lebesgue measurable set \(A\subseteq 2^\omega, A\in M\), the set
+    \begin{equation} \label{eqn:borel_algebra_dense2}
+        \set{C\in \B^*: C\text{ is closed} \land \paren{C\subseteq A\lor C\cap A = 0} }\quad\text{ is dense.}
+    \end{equation}
 
-The unique \(r\) is called a \emph{random real},
-we say \(r\) is \emph{random over} \(M\)..
+    Work in \(M[G]\), there is a unique real \(x\in2^\omega\) specified by
+    \[ \set{x} = \bigcap\set{A_c^{M[G]}: c\in M \text{ is a closed code and } A_c^M\in G} \]
+    where the intersection is nonempty due to \(G\) being a filter and the result is a singleton due to \Cref{eqn:borel_algebra_dense}.
 
-\begin{theorem}
-    Suppose \(M\) is a ctm. A real \(r\) is random over \(M\) iff
-    \(r\notin A_c\) for any \(c\in M\) which is a \(G_\delta\) code for a null set.
+    For any closed code \(c\in M\).  If \(A_c^M\in G\) then \(x\in A_c^{M[G]}\) by definition of \(c\).
+    Conversely suppose \(x\in A_c^{M[G]}\),
+    to show that \(A_c^M\in G\), (by \Cref{eqn:borel_algebra_dense2})
+    we just have to show that \(A_c^M\) meets every closed set in \(G\).
+    Let \(d\) be a closed code with \(A_d^M\in G\),
+    we have \(x \in A_c^{M[G]} \cap A_d^{M[G]}\) by definition of \(x\),
+    so by absoluteness, \(x \in A_c^M \cap A_d^M\) and \(A_c^M\) meets every closed set in \(G\) as desired.
+
+    We have already shown that \(x\) is definable from \(M[G]\),
+    to show \(M[G]\subseteq M[x]\) we define \(G\) in terms of \(x\) as
+    \[ G = \set{p\in\B^* : \exists c\paren{c\in M\text{ is a closed code} \land x\in A_c^{M[x]} \land A_c^{M[x]} \subseteq p} } \]
+    which shows that \(M[x] = M[G]\).
+\end{proof}
+
+\begin{definition}
+    The unique real \(x\) that is added via \(\B^*\)-forcing is called a \emph{random real}.
+    We say \(x\) is \emph{random over} \(M\) if \(x\) satisfies the conditions in \Cref{theorem:random_real}
+    for some \(\B^*\)-generic \(G\).
+\end{definition}
+
+The following characterisation gives us insight into the etymology of the term ``random real''.
+The Cantor set \(2^\omega\) behaves like a universal probability space in some ways, and
+this characterisation draws a parallel between \(\B^*\)-forcing and avoiding measure zero (probability zero) sets,
+hence random.
+\begin{theorem} \label{theorem:bstar_forcing_avoid_null_set}
+    A real \(x\in 2^\omega\) is random over \(M\) iff
+    \(x\notin A_c\) for any \(c\in M\) which is a \(G_{\delta}\) code for a null set.
 \end{theorem}
+\begin{proof}
+    Suppose \(x\) is random over \(M\) with \(G\) the witnessing \(\B^*\)-generic filter.
+    Let \(c\in M\) be a \(G_\delta\) code for a null set, we want \(x\notin A_c\).
+    Applying standard fact of measure theory, in \(M\) we have
+    \[ D = \set{ C\in\B^*: C\text{ closed} \land C\subseteq \paren{2^\omega\setminus A_c} } \text{ is dense.} \]
+    By genericity, \(G\) meets \(D\) so let \(d\in M\) be a closed code such that \(A_d^M \in G\cap D\),
+    then \(x\in A_d^{M[G]}\) by definition of \(x\),
+    so by absoluteness, \(x\in A_d\) which means \(x\notin A_c\).
+
+    Conversely suppose for all \(G_\delta\) codes for null set \(c\in M\), \(x\notin A_c\).
+    We recover \(G\) from \(x\) in the manner of proof of \Cref{theorem:random_real}
+    and show that \(G\) is \(\B^*\)-generic over \(M\).
+    This means we just need to show that whenever \(D\in M\) is dense in \(\B^*\),
+    there exists \(p\in D\) and a closed code \(c\in M\) satisfying \(x\in A_c\) and \(A_c^M \subseteq p\).
+
+    Proceed with a dense \(D\in M\), let \(\mathcal{A}\in M\),
+    \(\mathcal{A}\subseteq \set{C: C\text{ closed} \land \exists p\in D\paren{C\subseteq p}}\)
+    be a maximal antichain.
+    We know that the \(\B^*\) algebra is c.c.c. so \(\abs{\mathcal{A}} \leq \omega\).
+    Let \(\Angle{ c_n:n \in\omega}\) be a sequence of closed codes such that
+    \(\Angle{ A_{c_n} : n\in \omega }\) enumerates \(\mathcal{A}\).
+    We have refined the information contained in the dense set \(D\) into something easier to work with,
+    that is an antichain of closed sets enumerated by a countable sequence of closed codes.
+
+    Now define \(c\) to be a \(G_\delta\) code (\(c(0) > 1\)) such that
+    \[ c(2^n3^{i+1}) = 1 \text{ iff } O(\mathbf{s}_i) \cap A_{c_n} = 0. \]
+    For each \(n\in\omega\), \(A_c\) includes all basic open sets that avoids \(A_{c_n}\),
+    so \[A_c = \bigcap_{n\in\omega} \paren{2^\omega\setminus A_{c_n}} = 2^\omega\setminus\paren{\bigcup_{n\in\omega} A_{c_n}}.\]
+    As \(\mathcal{A}\) is maximal, \(A_c\) has to be a null set.
+
+    By hypothesis, \(x\notin A_c\), then \(x\in A_{c_n}\) for some closed code \(c_n\in M\) as desired.
+\end{proof}
+
 
 \section{Solovay's Theorem}
+
+For this section, we assume \(\kappa\in M\) and \(M\models \kappa \text{ is an inaccessible cardinal}\).
 
 \begin{definition}
     A set \(X\) is \emph{definable from a countable sequence of ordinals} iff
     for some \(s:\omega\to\mathbf{ORD}\) and some formula \(\phi(x_1,x_2)\),
     \[ y\in X \text{ iff } \phi(s,y). \]
+    Denote as \(X\in \mathbf{COD}\).
 \end{definition}
 \begin{remark}
-    Formally, to avoid quantifying over all logical formulas in the metatheory we use reflection.
+    Formally, to avoid quantifying over all logical formulas in the metatheory, we use the reflection principle.
 \end{remark}
 
+The methods used in \autocite{myhillscott1971} allow us to prove this fact.
 \begin{proposition}
-    Hereditarily \(\omega\)-ordinal definable is an inner model of \(\ZF\).
+    The collection of all hereditarily \(\omega\)-ordinal definable sets
+    \(\mathbf{HCOD} = \set{X: \trcl(X) \subseteq \mathbf{COD}}\)
+    is an inner model of \(\ZF\).
 \end{proposition}
 
-\begin{lemma}
-    For each formula \(\phi(x)\), there is a \(\tilde{\phi}(x)\) such that
+We first need to establish a key lemma which is built on the previously-established properties of the Lévy collapse.
+\begin{lemma} \label{lemma:solovay_key}
+    For each formula \(\phi(v)\), there is a \(\tilde{\phi}(v)\) such that
     for any \(s:\omega\to\mathbf{ORD}, s\in M[G]\),
-    \[ M[G]\models \phi(s) \text{ iff } M[x] \models \tilde{\phi}(s). \]
+    \[ M[G]\models \phi(s) \text{ iff } M[s] \models \tilde{\phi}(s). \]
 \end{lemma}
+\begin{proof}
+    For any \(s\in \mathbf{ORD}^\omega \cap M[G]\), by \Cref{lemma:important}
+    there is a \(\P = \Lv(\omega,\kappa)\)-generic filter \(H\) over \(M[s]\) such that \(M[G] = M[s][H]\).
+    Since \(\P\) is almost homogeneous, applying \Cref{proposition:property_almost_homo} with ground model \(M[s]\) we have
+    \[ M[s][H]\models \phi(s) \text{ iff } M[s] \models \left\ulcorner 1_\P \forces \phi(\check{s}) \right\urcorner. \]
+    As forcing is definable in the ground model,
+    we can take \(\tilde{\phi}\) to be the statement with one free variable that encapsulates the forcing assertion.
+\end{proof}
 
 \begin{theorem}
-    Insert Solovay theorem here.
+    Let \(G\) be \(\Lv(\omega,\kappa)\)-generic,
+    then in \(M[G]\), each subset of reals definable from a countable sequence of ordinals is Lebesgue measurable.
+
+    In particular, there is a \textbf{Solovay model} \(N\), with \(M \subseteq N \subseteq M[G]\),
+    containing precisely \(\mathbf{HCOD}^{M[G]}\) where every subset of reals is Lebesgue measurable.
 \end{theorem}
+\begin{proof}
+    Work in \(M[G]\),
+    for any \(a\in\mathbf{ORD}^\omega\),
+    by \Cref{lemma:levy_elementary} (e) \(\kappa\) remains inaccessible in \(M[a]\),
+    so \(\abs{2^\omega}^{M[a]} < \kappa\) which gives us that
+    \[ 2^\omega \cap M[a] \text{ is countable}. \]
+    Suppose \(A\subseteq 2^\omega\) is \(\mathbf{COD}\), then for some \(s:\omega\to\mathbf{ORD}\) and \(\phi(v_1,v_2)\),
+    \[ x\in A \text{ iff } \phi(a,x). \]
+    Applying \Cref{lemma:solovay_key} we have another formula \(\tilde{\phi}(v_1,v_2)\) satisfying
+    \[ x\in A \text{ iff } M[a][x] \models \tilde{\phi}(a,x). \]
+    Consider random-real forcing over \(M[a]\), by \Cref{theorem:bstar_forcing_avoid_null_set} we have
+    \[
+        \set{x\in2^\omega: x\text{ is not random over } M[a]}
+        = \bigcup \set{A_c: c\in V[a] \text{ is a } G_\delta \text{ code for a null set}}
+    \]
+    and the expression on the right is a countable union of null sets, so these sets are null.
+    As Lebesgue measurable sets are characterised by being almost equal to Borel sets,
+    we just need to find a Borel set \(X\) such that the symmetric difference \(A\triangle X\) only consists of non-random reals.
+
+    For the \(\B^*\)-forcing argument over \(M[a]\),
+    let \(\mathring{r}\) denote the canonical name for the random real that will be added.
+    Now let \(Y \in M[a]\) be a maximal antichain consisting of closed sets
+    that force either \(\tilde{\phi}(\check{a},\mathring{r})\) or its negation.
+    If \(x\) is random over \(M[a]\),
+    \(x\in A\) iff \(M[a][x]\models \tilde{\phi}(a,x)\)
+    iff \(p\forces \tilde{\phi}(\check{a},\mathring{r})\) for some \(p\in G\) and \(\B^*\)-generic \(G\).
+    As \(G\) is generic, it meets some \(q\in Y\) which by \Cref{theorem:random_real} gives us that
+    \[ x\in A\text{ iff } x\in \bigcup\set{A_c: A_c^{M[a]}\in Y\land A_c^{M[a]} \forces \tilde{\phi}(\check{a},\mathring{r})}. \]
+    By c.c.c. of \(\B\), \(Y\) is countable, so the expression on the right is in fact a Borel set,
+    which witnesses \(X\).
+\end{proof}

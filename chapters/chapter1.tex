@@ -98,6 +98,7 @@ and \ZFCminus and \ZFminus denotes \ZFC and \ZF respectively, but without founda
 \section{Known Results}
 
 For a detailed exposition of set theory, consistency proofs, and independence we refer the reader to \autocite{kunen1980}.
+Nevertheless, we cover some known results that we use.
 
 \subsection{Relativization}
 
@@ -144,12 +145,40 @@ We need the following textbook results from \autocite{kunen1980} and (possibly j
 
 <insert more results that I use>
 
-\subsection{Consistency proofs}
+\subsection{Consistency Proofs}
 
 A well-known example of relative consistency and independence from outside set theory is that of Euclid's parallel postulate.
-For thousands of years...
+For thousands of years, mathematicians have tried in vain to prove Euclid's parallel postulate from the other axioms,
+but in the 1800s it became easier for people to imagine that Euclid's \emph{Elements} might not be the only possible system for geometry.
+With the advent of non-Euclidean geometry, we can derive the following informal consistency result,
+\[ \textit{Compass and straightedge constructions on paper} \models \textsf{Euclidean geometry} \]
+but by considering any known model of non-Euclidean geometry, we have
+\[ \textit{Geometry on a sphere} \models \textsf{Euclidean geometry} - \textsf{Parallel postulate} + \lnot\textsf{Parallel postulate}. \]
+Which shows that the parallel postulate is \emph{independent} from the other axioms of Euclidean geometry,
+for if it was to be provable from the other axioms, then a non-Euclidean model will not exist.
 
-\subsection{Constructible universe and choice}
+Looking back at set theory we can find informal examples of independence regarding the \ZFC axioms.
+We look at the inner model \[V_\omega = \set{\text{all hereditarily finite sets}}\]
+by relativising the \ZFC axioms to it, we can check that
+\(\lnot\Axiom{Infinity}\) holds in \(V_\omega\),
+or more specifically
+\[ V_\omega \models \ZFC - \Axiom{Infinity} + \lnot \Axiom{Infinity}. \]
+Applying the similar informal argument as we did for the case of Euclidean geometry,
+we can see that the Axiom of Infinity is independent from the rest of the axioms of \ZFC.
+
+
+\subsection{Gödel's Constructible Universe}
 \label{subsection:constructible}
 
-gloss over \(\mathbf{L}\)
+Gödel's constructible universe, \(\mathbf{L}\), offered our first insight at the relative consistency and soundness of \Axiom{Choice} with respect to the other axioms of \ZF.
+Unlike the von Neumann universe \(\V\) which is constructed by iterating the powerset operation,
+\(\mathbf{L}\) is constructed by iterating the \emph{definable powerset} operation.
+This results in a class that satisfies the axioms of \ZFC, but since we only add sets that are accessible from the existing sets via some logical formula, \(\mathbf{L}\) barely the closure properties needed to satisfy the \ZFC axioms.
+
+As the construction of \(\mathbf{L}\) only depends on the axioms of \ZF,
+we see that an inner model of \(\ZF + \Axiom{Choice}\) can be constructed from merely the axioms in \ZF.
+This gives us the following result:
+\begin{theorem}
+    If \(\ZF\) is consistent, then the axiom of Choice is unprovable from the axioms in \ZF, so \ZFC is also consistent.
+\end{theorem}
+

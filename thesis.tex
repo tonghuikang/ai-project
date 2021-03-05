@@ -16,6 +16,7 @@
 \usepackage{lmodern}
 \usepackage{setspace}
 \usepackage{amssymb,amsmath,amsthm}
+\usepackage{parskip}
 
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
@@ -111,11 +112,10 @@
 
 \newcommand{\makecoverpage}{
     \begin{center}
-        \singlespacing
         \includegraphics[width=0.5\textwidth]{nus_logo}
         \vspace*{3em}
 
-        \doublespacing
+        \begin{doublespace}
         {\huge \textbf{\thetitle}}
         \vspace*{5em}
 
@@ -127,14 +127,17 @@
         {by \\ \theauthor \\}
         \vspace*{3em}
         {\thedate}
+        \end{doublespace}
     \end{center}
 }
 \newenvironment*{acknowledgements}{\renewcommand\abstractname{Acknowledgements}\begin{abstract}} {\end{abstract}}
-\onehalfspacing
+%\onehalfspacing
 %\singlespacing
+\setstretch{1.1}
 \begin{document}
 \let\setminus\smallsetminus
 \let\epsilon\varepsilon
+\let\phi\varphi
 %% Cover page
 %\pagenumbering{alph}
 \begin{titlepage}
@@ -144,10 +147,9 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{Acknowledgements}
 \begin{acknowledgements}
-    no spoilers
-    %I would like to thank my supervisor, Associate Professor Dilip Raghavan for guiding me throughout my journey in university.
+    I would like to thank my supervisor, Associate Professor Dilip Raghavan for guiding me throughout my journey in university.
 
-    %I would also like to thank Professor Frank Stephan, Professor Yang Yue, Dr Ashutosh Kumar, Dr Wong Tin Lok, Koo Zhengqun and Thomas Tan for guiding and supporting me throughout my journey in mathematical logic.
+    I would also like to thank Professor Frank Stephan, Professor Yang Yue, Dr Ashutosh Kumar, Dr Wong Tin Lok, Koo Zhengqun and Thomas Tan for guiding and supporting me throughout my journey in mathematical logic.
 \end{acknowledgements}
 
 \phantomsection
@@ -173,6 +175,7 @@
 \include{chapters/chapter3}
 \include{chapters/chapter4}
 
-
-\printbibliography[heading=bibintoc,title={References}]
+\begin{onehalfspace}
+    \printbibliography[heading=bibintoc,title={References}]
+\end{onehalfspace}
 \end{document}

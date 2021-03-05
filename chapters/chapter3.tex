@@ -2,14 +2,25 @@
 
 Paul Cohen invented forcing to deal with CH in 1963.
 He used it to prove the independence of Choice from \ZF and the independence of CH from \ZFC.
-TODO: more history
+The techniques of forcing has been greatly reworked, simplified and improved by mathematicians over the years.
+It is now a powerful and general technique that's applicable in many areas in mathematical logic.
 % cohen essay here: http://www.logic.univie.ac.at/~ykhomski/ST2013/The%20Discovery%20of%20Forcing.pdf
+
+According to Cohen's own account (see \autocite[1087]{cohen2002}),
+in 1966 Gödel told Cohen that he had actually partially solved the independence problem for Choice, but not CH,
+whilst denying the usage of type theory in his methods.
+In 1967 however, Gödel wrote in a letter that he obtained some results in 1942,
+but only for the independence of the axiom of constructibility (\(\V = \mathbf{L}\)), and in type theory (contradicting himself).
+With the aura of mystique surrounding Gödel and his withdrawal from mathematics, we might never know what actually happened.
 
 \section{Forcing}
 \renewcommand*{\P}{{\mathbb{P}}}
 \newcommand*{\forces}{\Vdash}
 
-For a detailed exposition on Forcing please see \autocite{kunen1980}.
+For the rest of this thesis, \(M\) shall denote our \emph{base model}, which is a countable transitive model of \ZFC.
+\(\P\) will usually refer to a \emph{atomless}, or \emph{separative} partial order, in which every element has two incompatible extensions.
+For a detailed exposition on forcing please see \autocite{kunen1980}.
+Nevertheless, we briefly cover some known results that we need to invoke.
 
 \begin{definition}
     Let \(\P\) be a partial order and \(\pi: \P\to\P\),
@@ -31,27 +42,51 @@ For a detailed exposition on Forcing please see \autocite{kunen1980}.
     If \(\pi:\P\to\P\) is an automorphism, its induced automorphism \(\pi: M^\P \to M^\P\) satisfies \(\pi(\check{x}) = \check{x}\).
 \end{observation}
 
-\begin{lemma}
-    Suppose \(\pi, \P\in M\) and \(\pi:\P\to\P\) is an automorphism, then for any formula \(\phi(x_1,\dots,x_n)\),
-    \[ p\forces \phi(\tau_1,\dots,\tau_n)\quad \text{ iff }\quad \pi(p)\forces \phi(\pi(\tau_1),\dots,\pi(\tau_n)).  \]
+\begin{lemma}[Lemma 7.13 in {\autocite[222]{kunen1980}}, specialised to automorphisms] \label{lemma:forcing_invariant_under_pi}
+    Suppose \(\pi, \P\in M\) and \(\pi:\P\to\P\) is an automorphism, then for any formula \(\phi(v_1,\dots,v_n)\),
+    \[ p\forces \phi(x_1,\dots,x_n)\quad \text{ iff }\quad \pi(p)\forces \phi(\pi(x_1),\dots,\pi(x_n)).  \]
 \end{lemma}
-\begin{proof}
-    Specialise Lemma 7.13 in \autocite[222]{kunen1980} to automorphisms instead of poset embeddings.
-\end{proof}
 
 \begin{definition}
     A partial order \(\P\) is \emph{almost homogeneous} iff
     for any \(p,q\in\P\) there is an automorphism \(\pi\) on \(\P\) such that \(\pi(p)\) is compatible with \(q\).
 \end{definition}
 
-(still need to cover a bit of results)
+\begin{proposition} \label{proposition:property_almost_homo}
+    Suppose \(\P\in M\) is almost homogeneous in \(M\).
+    If \(p\forces \phi(\check{x}_1,\dots,\check{x}_n)\), then \(1_\P\forces \phi(\check{x}_1,\dots,\check{x}_n)\);
+    thus, either \(1_\P\forces \phi(\check{x}_1,\dots,\check{x}_n)\) or \(1_\P\forces \lnot\phi(\check{x}_1,\dots,\check{x}_n)\).
+\end{proposition}
+\begin{proof}
+    Assume \(p\forces \phi(\check{x}_1,\dots,\check{x}_n)\), we show \(1_\P\forces \phi(\check{x}_1,\dots,\check{x}_n)\).
+    Let \(G\) be any generic filter, suppose \(M[G]\models \lnot\phi(x_1,\dots,x_n)\),
+    and let it be forced by \(q\in G\), then there is an automorphism such that \(\pi(p)\) and \(q\) are compatible,
+    but \(\pi(p)\) forces \(\phi(x_1,\dots,x_n)\).
+    Since every true statement in \(M[G]\) is forced by some \(p\in\P\),
+    either \(1_\P\forces \phi(\check{x}_1,\dots,\check{x}_n)\) or \(1_\P\forces \lnot\phi(\check{x}_1,\dots,\check{x}_n)\).
+\end{proof}
 
+\begin{lemma}[Product Lemma, 15.9 in {\autocite[229]{jech2003}}, 1.4 in {\autocite[252]{kunen1980}}]
+    \label{lemma:iterated_forcing_product}
+    Given posets \(\P_1\) and \(\P_2\),
+    \(G\subseteq \P_1\times\P_2\) is generic over \(M\) iff
+    \(G = G_1\times G_2\) where \(G_1\subseteq \P_1\) is generic over \(M\) and \(G_2\subseteq \P_2\) is generic over \(M[G_1]\).
+    Moreover, \(M[G] = M[G_1][G_2]\).
+\end{lemma}
 
-
-
+\begin{theorem}[Intermediate Model Property, Lemma 15.43 in {\autocite[247]{jech2003}}]
+    \label{proposition:intermediate_model_property}
+    If \(M\subseteq N\subseteq M[G]\) are models of \ZFC,
+    where \(M[G]\) is a forcing extension of \(M\) and \(N\) is an inner model of \(M[G]\),
+    then \(N\) is also a forcing extension of \(M\) and
+    \(M[G]\) is also a forcing extension of \(N\).
+%    Furthermore, if \(G\) is \(M\)-generic, then there is some smaller partial order \(\P_0\subseteq \P\) in \(M\)
+%    such that \(N = M[G_0]\) via \(G_0 = G \cap \P_0\), .... too much
+\end{theorem}
 
 
 \section{Symmetric Extensions}
+
 
 \renewcommand*{\G}{\mathscr{G}}
 \newcommand*{\dom}{\operatorname{dom}}
@@ -162,7 +197,7 @@ Now we can find \(\pi\in\G\) satisfying
     \item \(\pi \in \G_B\),
     \item \(\pi n\ne n\).
 \end{enumerate}
-Then (by TODO cite the known result) \(\pi p \Vdash (\pi \mathring{f})(\pi \check{i}) = \pi \mathring{x}_{n}\), so
+Then by \Cref{lemma:forcing_invariant_under_pi}, \(\pi p \Vdash (\pi \mathring{f})(\pi \check{i}) = \pi \mathring{x}_{n}\), so
 \[p \cup \pi p \Vdash \mathring{f}(\check{i}) = \mathring{x}_n \land \mathring{f}(\check{i}) = \mathring{x}_{\pi n}. \]
 This contradiction completes the proof.
 \end{proof}
