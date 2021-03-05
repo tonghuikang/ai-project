@@ -98,16 +98,19 @@ What we have just done is produce a model of \ZFCminus with a single indecomposa
     Working in \ZFminus, \(\WF(A)\) is a transitive model of \ZFminus and {\normalfont\textsf{Choice}} implies \({\normalfont\textsf{Choice}}^{\WF(A)}\) is consistent.
 \end{lemma}
 \begin{proof}
-    TODO: link to prerequisite results in chapter 1 after typing those out
+    \(\WF(A)\) being transitive is obvious and all transitive models satisfy \Axiom{Extensionality} by \Cref{lemma:transitive_extensional}.
 
-    \(\WF(A)\) being transitive is obvious.
-    All transitive models satisfy Extensionality.
-    Comprehension follows from \(\WF(A)\) being closed under power set.
-    Powerset follows from Lemma 2.9.
-    Pairing and Union looks easy.
-    Replacement - For any definable class function \(\F\) and any set \(X\in\WF(A)\), take minimum \(\alpha\) such that \(\mathbf{F}\) image of \(X\) is contained in \(R(\alpha, A)\).
-    Infinity looks obvious.
-    Assume choice and \(\text{choice}^{\WF(A)}\) follows from Lemma 3.14 (universal statements relativise down).
+    \Axiom{Comprehension} follows from \(\WF(A)\) being closed under power set.
+
+    \Axiom{Power set} follows from \Cref{lemma:power_set}.
+
+    \Axiom{Pairing} and \Axiom{Union} looks easy.
+
+    \Axiom{Replacement} -- For any definable class function \(\F\) and any set \(X\in\WF(A)\), take minimum \(\alpha\) such that the \(\mathbf{F}\)-image of \(X\) is contained in \(R(\alpha, A)\).
+
+    \Axiom{Infinity} looks obvious.
+
+    Assume \Axiom{Choice} and \(\Axiom{Choice}^{\WF(A)}\) holds since \Axiom{Choice} can be expressed as a \(\Pi_1\) statement which relativises down.
 \end{proof}
 
 Now we can produce a model of \textsf{ZFA} with infinitely many atoms, as hinted at the start of the section.
@@ -164,15 +167,29 @@ for any \(\pi\in G\) we can naturally extend \(\pi\) to be a permutation \(\V\to
     In this case \(\mathbf{HS}\) is what we call the \textbf{Basic Fraenkel model}.
 \end{remark}
 
-\begin{lemma}
-    \(\mathbf{HS}\) is a model of \ZFminus.
-\end{lemma}
+\begin{theorem} \label{theorem:f-k-model-zfminus}
+    \(\mathbf{HS}\) is a transitive model of \ZFminus.
+\end{theorem}
 \begin{proof}
-    TODO: transitive means extensionality
+    Transitivity is obvious.
 
-    every subset of HS is included in some element so it satisfies a lot of closure properties...
+    To show that \(\mathbf{HS}\) is closed under Gödel operations,
+    we illustrate by showing that if \(x,y\) are symmetric then so is \(\set{x,y}\).
+    Let \(B, B'\) be finite sets witnessing \(x\in \mathbf{S}\) and \(y\in\mathbf{S}\) respectively,
+    then \(B\cap B'\) is still finite and witnesses \(\set{x,y} \in \mathbf{S}\).
+    The 7 other Gödel operations are similar.
 
-    type out annoying checks later
+    To show that \(\mathbf{HS}\) is almost universal,
+    it suffices to show that for each \(\alpha\),
+    \(R(\alpha,A) \cap \mathbf{HS}\) is symmetric.
+    Note that for all \(x\), if \(B\) witnesses \(x\in \mathbf{S}\),
+    then \(\pi''B\) witnesses \(\pi x\in \mathbf{S}\) for any permutation \(\pi\).
+
+    Since the \(A\) rank of \(\pi x\) is the same as that of \(x\),
+    we have \(\pi\paren{R(\alpha,A) \cap \mathbf{HS}} = R(\alpha,A) \cap \mathbf{HS}\)
+    for all \(\alpha\), for all \(\pi\).
+
+    Since \(\mathbf{HS}\) is transitive, almost universal and closed under Gödel operations, by \Cref{theorem:jech_zf_model} \(\mathbf{HS}\) is a model of \ZFminus.
 \end{proof}
 
 \begin{theorem}[Fraenkel-Mostowski]

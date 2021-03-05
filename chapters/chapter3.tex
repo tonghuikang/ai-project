@@ -4,7 +4,6 @@ Paul Cohen invented forcing to deal with CH in 1963.
 He used it to prove the independence of Choice from \ZF and the independence of CH from \ZFC.
 The techniques of forcing has been greatly reworked, simplified and improved by mathematicians over the years.
 It is now a powerful and general technique that's applicable in many areas in mathematical logic.
-% cohen essay here: http://www.logic.univie.ac.at/~ykhomski/ST2013/The%20Discovery%20of%20Forcing.pdf
 
 According to Cohen's own account (see \autocite[1087]{cohen2002}),
 in 1966 Gödel told Cohen that he had actually partially solved the independence problem for Choice, but not CH,
@@ -122,7 +121,11 @@ Given a normal filter \(\mathscr{F}\) we can use it to define the notion of \emp
     \(N\) is a model of \ZF.
 \end{theorem}
 \begin{proof}
-    TODO: annoying, later
+    \(N\) is transitive because any symmetric name \(x\in \mathbf{HS}\) satisfies \(\dom(x)\subseteq \mathbf{HS}\).
+
+    For names \(x,y\), one can define names \(z_i\) for the result of the \(i\)-th Gödel operation on \(x, y\).
+    In an argument similar to that in \Cref{theorem:f-k-model-zfminus}, we can see that \(\G_{z_i} = \G_x \cap \G_y \in \mathscr{F}\).
+
 \end{proof}
 
 \section{Basic Cohen Model}

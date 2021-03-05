@@ -137,13 +137,39 @@ we can make precise the notion of truth in \(\mathbf{M},\mathbf{E}\).
     \end{enumerate}
 \end{definition}
 
-We need the following textbook results from \autocite{kunen1980} and (possibly jech?)
+We need the following textbook results from \autocite{kunen1980} and \autocite{jech1973}.
 
-\begin{lemma}
+\begin{lemma} \label{lemma:transitive_extensional}
     If \(\M\) is transitive then \(\M\models\Axiom{Extensionality}\).
 \end{lemma}
 
-<insert more results that I use>
+\begin{lemma} \label{lemma:power_set}
+    If \(\M\) is transitive, then \(\M\models\Axiom{Power Set}\) iff
+    \[ \forall x\in\M\ \exists y\in \M \paren{\mathcal{P}(x)\cap M \subseteq y}. \]
+\end{lemma}
+
+\begin{definition}
+    Call a transitive \(\M\) \emph{almost universal} if
+    every subset of \(\M\) is included in an element of \(\M\).
+    \[ \paren{\forall S\subseteq \M}\paren{\exists Y\in \M}\paren{S\subseteq Y}. \]
+\end{definition}
+\begin{definition}
+    The 8 Gödel operations are:
+    \begin{enumerate}
+        \item cartesian product -- \(X\times Y\),
+        \item set difference -- \(X\setminus Y\),
+        \item unordered pair -- \(\set{X, Y}\),
+        \item restricting membership --  \(\in \cap X^2\),
+        \item taking domain of a binary relation -- \(\operatorname{dom}(X)\),
+        \item permuting an ordered triple -- \(\set{(a,c,b): (a,b,c)\in X}, \set{(b,a,c): (a,b,c)\in X}\) and \(\set{(c,b,a): (a,b,c)\in X}\).
+    \end{enumerate}
+\end{definition}
+\begin{theorem} \label{theorem:jech_zf_model}
+    If \(\M\) is transitive and almost universal,
+    \(\M\) satisfies all the axioms of \ZFminus except possibly \Axiom{Comprehension}.
+    If \(\M\) also satisfies 8 particular instances of \Axiom{Comprehension} by being closed under Gödel operations,
+    the entire Axiom Schema of Comprehension holds in \(\M\).
+\end{theorem}
 
 \subsection{Consistency Proofs}
 
@@ -173,12 +199,12 @@ we can see that the Axiom of Infinity is independent from the rest of the axioms
 Gödel's constructible universe, \(\mathbf{L}\), offered our first insight at the relative consistency and soundness of \Axiom{Choice} with respect to the other axioms of \ZF.
 Unlike the von Neumann universe \(\V\) which is constructed by iterating the powerset operation,
 \(\mathbf{L}\) is constructed by iterating the \emph{definable powerset} operation.
-This results in a class that satisfies the axioms of \ZFC, but since we only add sets that are accessible from the existing sets via some logical formula, \(\mathbf{L}\) barely the closure properties needed to satisfy the \ZFC axioms.
+This results in a class that satisfies the axioms of \ZFC, but since we only add sets that are accessible from the existing sets via some logical formula, \(\mathbf{L}\) barely satisfies the closure properties needed to satisfy the \ZFC axioms.
 
 As the construction of \(\mathbf{L}\) only depends on the axioms of \ZF,
 we see that an inner model of \(\ZF + \Axiom{Choice}\) can be constructed from merely the axioms in \ZF.
 This gives us the following result:
 \begin{theorem}
-    If \(\ZF\) is consistent, then the axiom of Choice is unprovable from the axioms in \ZF, so \ZFC is also consistent.
+    If \(\ZF\) is consistent, then \(\lnot\Axiom{Choice}\) is unprovable from the axioms in \ZF, so \ZFC is also consistent.
 \end{theorem}
 
