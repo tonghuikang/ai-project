@@ -4,11 +4,11 @@ The Solovay model is an interesting model in which choice fails.
 It is of particular intrigue to analysts due to its many interesting analytical and measure-theoretic properties.
 The main results were established in the Spring of 1964, just a year after Cohen's creation of forcing.
 
-* On top of introducing solovay model, the paper also introduced the method of generic filters and boolean valued models
+On top of introducing the Solovay model, \autocite{solovay1970} also introduced the method of generic filters and boolean valued models,
+which was a major refinement towards Cohen's original techniques of forcing.
+In contrast to Cohen's syntactic approach, known as ramified forcing, Solovay's methods were noticeably more algebraic and abstract.
 
 \section{Lévy Collapse}
-
-Lévy collapse was one of the first applications of forcing...
 
 \newcommand*{\Lv}{\operatorname{Lv}}
 \begin{definition}
@@ -86,7 +86,29 @@ More precisely,
     and an injective embedding \(D_\alpha \to \P\) whose image is dense.
 \end{lemma}
 \begin{proof}
-    TODO
+    Set \(\nu = \abs{\alpha}\),
+    note that combinatorially, we have for each \(p\in\P\) there is a maximal antichain below \(p\) of cardinality \(\nu\).
+
+    The dense subset of \(\Lv(\omega,\set{\alpha}\) is
+    \[ D_\alpha = \set{p: \exists n\in\omega \paren{p: \set{alpha}\times n\to \alpha}}.\]
+
+    Let \(\mathring{g}\) be name for the surjection \(g:\omega\to G\) that will be added via \(\Lv(\omega,\set{\alpha})\)-forcing.
+    Define an injective, dense embedding \(e: D_\alpha\to\P\) by recursion on \(\abs{p}\).
+    Set \(e(0) = 1_\P\).
+    Suppose \(e(p)\) has already been defined for some \(p\in D_\alpha\) with \(\dom(p) = \set{\alpha}\times n\),
+    let \(\Angle{a_\xi^p: \xi<\alpha}\) enumerate a matimal antichain below \(e(p)\) of cardinality \(\nu\).
+    Without loss of generality, it can be assumed that for each \(\xi\),
+    \[ a_\xi^p \forces \mathring{g}(n) = \check{r} \text{ for some } r\in \P. \]
+    Now set \(e(p\cup \set{\Angle{(\alpha, n), \xi}}) = a_\xi^p\) for each \(\xi<\alpha\).
+
+    We can see that \(e\) is injective.
+    To show that \(e''D_\alpha\) is dense, let \(r\in \P\).
+    It is always the case that \(r\forces \check{r}\in\mathring{G}\),
+    as we assume \(\P\) is atomless, we refine this condition and produce a \(s\leq r\)
+    such that \(s\forces \mathring{g}(n) = \check{r}\) for some \(n\in\omega\).
+
+    By construction of \(e\), there is a \(p\in D_\alpha\) with \(\abs{p} = n+1\) such that \(e(p)\) is compatible with \(s\).
+    But also by construction, \(e(p)\) has already decided \(\mathring{g}(n)\) which means that \(e(p)\) must be below \(r\).
 \end{proof}
 
 \begin{corollary}

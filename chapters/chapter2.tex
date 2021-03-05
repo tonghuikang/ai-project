@@ -12,7 +12,6 @@ This section will introduce the theory \textsf{ZFA}, that is \ZF with atoms and
 show that in \ZFC, one can produce a model of \textsf{ZFA} with infinitely many atoms.
 
 \newcommand*{\F}{\mathbf{F}}
-\renewcommand*{\Im}{\operatorname{Im}}
 Let \(\mathbf{F}:\V\to\V\) be any permutation of the universe (one-one and onto class function),
 it turns out that we can use \(\mathbf{F}\) to redefine the membership relation and obtain a model without foundation.
 We will make this precise as follows,
@@ -44,10 +43,10 @@ We will make this precise as follows,
                 \forall \mathscr{F}~\exists A~\forall Y~\forall x\paren{x\in \F(Y)\land Y\in\F(\mathscr{F}) \rightarrow x\in\F(A)},
             \]
             let \(\mathscr{F}\in\V\),
-            apply union (in \(\V\)) to \(\Im_{\F}(\F(\mathscr{F}))\) (appealing to replacement in \(\V\)),
+            apply union (in \(\V\)) to \(\F''(\F(\mathscr{F}))\) (appealing to replacement in \(\V\)),
             then there exists \(B\) satisfying
             \begin{equation}\label{c2:eqn:union}
-                \forall Z~\forall w\paren{w\in Z\land Z\in \Im_{\F}(\F(\mathscr{F})) \rightarrow w\in B}.
+                \forall Z~\forall w\paren{w\in Z\land Z\in \F''(\F(\mathscr{F})) \rightarrow w\in B}.
             \end{equation}
             Let \(A = \F^{-1}(B)\) and let \(Y,x\in\V\), assume \(x\in \F(Y)\) and \(Y\in\F(\mathscr{F})\),
             let \(Z = \F(Y)\) and \(w = x\), apply \Cref{c2:eqn:union} to conclude that \(x\in \F(A) = B\).
@@ -58,7 +57,7 @@ We will make this precise as follows,
                 },
             \]
             let \(A,\overline{w}\in \V\) and assume that \(\phi\) defines a function on \(\F(A)\).
-            We need to find \(Y\) such that \(\Im_{\F}(A) \subseteq \F(Y)\), and \(\F^{-1}(\Im_{\F}(A))\) satisfies the condition.
+            We need to find \(Y\) such that \(\F''(A) \subseteq \F(Y)\), and \(\F^{-1}(\F''(A))\) satisfies the condition.
 
         \item For \(\textsf{Choice}^{\V,\E}\) we can verify that it is in fact
             \[ \forall A~\forall R\paren{\F(R) \text{ well-orders } \F(A)} \]
