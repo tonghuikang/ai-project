@@ -135,31 +135,31 @@ We aim to show the following result of Fraenkel-Mostowski,
 
 Consider \(G\) the group of permutations on \(A\),
 as \(\V\) is built by iterating the powerset operation starting from \(A\),
-for any \(\pi\in G\) we can naturally extend \(\pi\) to be a permutation \(\V\to\V\).
+for any \(i\in G\) we can naturally extend \(i\) into be a permutation \(i_*:\V\to\V\).
 \begin{definition}
-    Let \(\pi \in G\), abusing notation, we extend \(\pi\) by
+    Let \(i \in G\), we define \(i_*: \V\to\V\) as
     \begin{itemize}
-        \item \(\pi(a) = \pi(a)\) for atomic \(a\in A\),
-        \item \(\pi(y) = \set{\pi(z): z\in y}\) otherwise.
+        \item \(i_*(a) = i(a)\) for atomic \(a\in A\),
+        \item \(i_*(y) = \set{i_*(z): z\in y}\) otherwise.
     \end{itemize}
 \end{definition}
 \begin{remark}
     Formally, this definition is achieved by recursion on the \(A\)-rank of \(x\in\V\), which is \(\min_{\alpha} \set{x\in R(\alpha,A)}\).
 \end{remark}
 \begin{observation}
-    The following properties hold for \(\pi:\V\to\V\),
+    The following properties hold for \(i_*:\V\to\V\),
     \begin{enumerate}
-        \item \(x\in y\leftrightarrow \pi x \in \pi y\).
-        \item \(\pi(\set{x,y}) = \set{\pi x, \pi y}\).
-        \item \(\pi(\paren{x,y}) = \paren{\pi x, \pi y}\).
+        \item \(x\in y\leftrightarrow i_* x \in i_* y\).
+        \item \(i_*\set{x,y} = \set{i_* x, i_* y}\).
+        \item \(i_*\Angle{x,y} = \Angle{i_* x, i_* y}\).
     \end{enumerate}
 \end{observation}
 
 \begin{definition}
     For each \(B\subseteq A\) we denote its stabilizer
-    \[ G_B = \set{\pi\in G: \forall x\in B\paren{\pi x = x}}.\]
+    \[ G_B = \set{i\in G: \forall x\in B\paren{i x = x}}.\]
     Define the class of all \emph{symmetric objects} as
-    \[ \mathbf{S} = \set{y:\exists B\subseteq A\paren{\abs{B}<\omega \land \forall \pi\in G_B\paren{\pi y = y}}}. \]
+    \[ \mathbf{S} = \set{y:\exists B\subseteq A\paren{\abs{B}<\omega \land \forall i\in G_B\paren{i_* y = y}}}. \]
     Then \(\mathbf{HS} = \set{y\in \mathbf{S}:\trcl(y)\subseteq \mathbf{S}}\) will denote all \emph{hereditarily symmetric} objects.
 \end{definition}
 \begin{remark}
@@ -182,11 +182,10 @@ for any \(\pi\in G\) we can naturally extend \(\pi\) to be a permutation \(\V\to
     it suffices to show that for each \(\alpha\),
     \(R(\alpha,A) \cap \mathbf{HS}\) is symmetric.
     Note that for all \(x\), if \(B\) witnesses \(x\in \mathbf{S}\),
-    then \(\pi''B\) witnesses \(\pi x\in \mathbf{S}\) for any permutation \(\pi\).
-
-    Since the \(A\) rank of \(\pi x\) is the same as that of \(x\),
-    we have \(\pi\paren{R(\alpha,A) \cap \mathbf{HS}} = R(\alpha,A) \cap \mathbf{HS}\)
-    for all \(\alpha\), for all \(\pi\).
+    then \(i''B\) witnesses \(i_* x\in \mathbf{S}\) for any permutation \(i\).
+    Since the \(A\)-rank of \(i_* x\) is the same as that of \(x\),
+    we have \(i_*\paren{R(\alpha,A) \cap \mathbf{HS}} = R(\alpha,A) \cap \mathbf{HS}\) for all \(\alpha, i\).
+    In particular, the empty set witnesses that \(R(\alpha,A)\cap\mathbf{HS}\) is symmetric.
 
     Since \(\mathbf{HS}\) is transitive, almost universal and closed under Gödel operations, by \Cref{theorem:jech_zf_model} \(\mathbf{HS}\) is a model of \ZFminus.
 \end{proof}
@@ -196,12 +195,12 @@ for any \(\pi\in G\) we can naturally extend \(\pi\) to be a permutation \(\V\to
     \(\mathbf{HS}\) is a model of \(\ZFminus + \lnot{\normalfont\textsf{Choice}}\).
 \end{theorem}
 \begin{proof}
-    Since \(\pi(A) = A\) for all \(\pi\in G\), \(A\) is symmetric.
+    Since \(i_*(A) = A\) for all \(i\in G\), \(A\) is symmetric.
     Suppose the result fails and work in \(\mathbf{HS}\), let \(R\) be an ordering on \(A\).
-    As \(R\) is symmetric, let \(B\subseteq A\) be finite such that each \(\pi\in G_B\) fixes \(R\).
+    As \(R\) is symmetric, let \(B\subseteq A\) be finite such that each \(i\in G_B\) fixes \(R\).
     We can compute that
-    \[ \pi(R) = \set{\paren{\pi x,\pi y}: \paren{x,y}\in R} = R \]
-    so \(x\,R\,y\) iff \(\pi x\,R\,\pi y\).
-    However, this fails to hold in general as \(\pi\) is only known to fix \(B\), a finite set, this is the contradiction.
+    \[ i_*(R) = \set{\Angle{i x,i y}: \Angle{x,y}\in R} = R \]
+    so \(x\,R\,y\) iff \(i x\,R\,i y\).
+    However, this fails to hold in general as \(i\) is only known to fix \(B\), a finite set, this is the contradiction.
 \end{proof}
 
