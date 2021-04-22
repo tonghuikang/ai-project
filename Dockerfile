@@ -1,4 +1,4 @@
-FROM pandoc/latex
+FROM pandoc/latex:2.13
 
 RUN tlmgr update --self && \
     tlmgr install latexmk xpatch tabu cleveref mdframed zref needspace enumitem
