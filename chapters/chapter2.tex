@@ -34,9 +34,9 @@ We will make this precise as follows,
 
         \item Let \(\phi\) be a formula with free variables \(x,z,\overline{w}\), its instance of \(\textsf{Comprehension}^{\V,\mathbf{E}}\) is
             \[ \forall z~\forall \overline{w}~\exists y~\forall x \paren{
-                    x \in \F(y) \leftrightarrow x\in \F(z) \land \phi
+                    x \in \F(y) \leftrightarrow x\in \F(z) \land \phi^{\V,\mathbf{E}}
             },\]
-            let \(z,\overline{w}\in \V\), comprehension (in \(\V\)) gives us existence of \(\F(y)\) and use fact that \(\F\) is a permutation to get existence of \(y\).
+            let \(z,\overline{w}\in \V\), comprehension (in \(\V\), with formula \(\phi^{\V,\mathbf{E}}\)) gives us existence of \(\F(y)\) and use fact that \(\F\) is a permutation to get existence of \(y\).
 
         \item For \(\textsf{Union}^{\V,\mathbf{E}}\) which is
             \[
@@ -53,11 +53,19 @@ We will make this precise as follows,
 
         \item Let \(\phi\) be a formula with free variables \(x,y,A,\overline{w}\), its instance of \(\textsf{Replacement}^{\V,\E}\) is
             \[ \forall A~\forall \overline{w} \sq{
-                    \forall x\in\F(A) ~ \exists!y\ \phi \rightarrow \exists Y~ \forall x\in \F(A)~ \exists y\in \F(Y)~ \phi
+                    \forall x\in\F(A) ~ \exists!y\ \phi^{\V,\mathbf{E}} \rightarrow \exists Y~ \forall x\in \F(A)~ \exists y\in \F(Y)~ \phi^{\V,\mathbf{E}}
                 },
             \]
-            let \(A,\overline{w}\in \V\) and assume that \(\phi\) defines a function on \(\F(A)\).
+            let \(A,\overline{w}\in \V\) and assume that \(\phi^{\V,\E}\) defines a function on \(\F(A)\).
             We need to find \(Y\) such that \(\F''(A) \subseteq \F(Y)\), and \(\F^{-1}(\F''(A))\) satisfies the condition.
+
+        \item For \(\Axiom{Infinity}^{\V,\E}\), we can construct \(\omega^{\V,\E}\) (in \(\V\)) as follows, define
+            \begin{align*}
+                0^{\V,\E} &= 0 \\
+                1^{\V,\E} &= \F(\set{0^{\V,\E}}) \\
+                2^{\V,\E} &= \F(\set{0^{\V,\E}, 1^{\V,\E}})
+            \end{align*}
+            and so on. Now we can check that \(\F(\set{0^{\V,\E},1^{\V,\E},2^{\V,\E},\dots})\) is \(\omega^{\V,\E}\).
 
         \item For \(\textsf{Choice}^{\V,\E}\) we can verify that it is in fact
             \[ \forall A~\forall R\paren{\F(R) \text{ well-orders } \F(A)} \]
@@ -94,14 +102,14 @@ What we have just done is produce a model of \ZFCminus with a single indecomposa
 \end{definition}
 
 \begin{lemma} \label{WFfromA}
-    Working in \ZFminus, \(\WF(A)\) is a transitive model of \ZFminus and {\normalfont\textsf{Choice}} implies \({\normalfont\textsf{Choice}}^{\WF(A)}\) is consistent.
+    Working in \ZFminus, \(\WF(A)\) is a transitive model of \ZFminus and {\normalfont\textsf{Choice}} implies \({\normalfont\textsf{Choice}}^{\WF(A)}\).
 \end{lemma}
 \begin{proof}
     \(\WF(A)\) being transitive is obvious and all transitive models satisfy \Axiom{Extensionality} by \Cref{lemma:transitive_extensional}.
 
     \Axiom{Comprehension} follows from \(\WF(A)\) being closed under power set.
 
-    \Axiom{Power set} follows from \Cref{lemma:power_set}.
+    \Axiom{Power Set} follows from \Cref{lemma:power_set}.
 
     \Axiom{Pairing} and \Axiom{Union} looks easy.
 
@@ -109,7 +117,7 @@ What we have just done is produce a model of \ZFCminus with a single indecomposa
 
     \Axiom{Infinity} looks obvious.
 
-    Assume \Axiom{Choice} and \(\Axiom{Choice}^{\WF(A)}\) holds since \Axiom{Choice} can be expressed as a \(\Pi_1\) statement which relativizes down.
+    Assume \Axiom{Choice}, then \(\Axiom{Choice}^{\WF(A)}\) holds since \Axiom{Choice} can be expressed as a \(\Pi_1\) statement which relativizes down.
 \end{proof}
 
 Now we can produce a model of \textsf{ZFA} with infinitely many atoms, as hinted at the start of the section.
