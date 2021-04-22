@@ -2,9 +2,11 @@
 
 The Solovay model is an interesting model in which choice fails.
 It is of particular intrigue to analysts due to its many interesting analytical and measure-theoretic properties.
-The main results were established in the Spring of 1964, just a year after Cohen's creation of forcing.
+The main results were established in the Spring of 1964, and were presented at the July meeting of the Association of Symbolic Logic at Bristol, England \autocite[see footnote * in][1]{solovay1970}.
+The methods and arguments were developed just a year after Cohen's creation of forcing,
+and were highly sophisticated for its time.
 
-On top of introducing the Solovay model, \autocite{solovay1970} also introduced the method of generic filters and boolean valued models,
+On top of introducing the Solovay model, \autocite{solovay1970} also introduced the method of generic filters and Boolean valued models,
 which was a major refinement towards Cohen's original techniques of forcing.
 In contrast to Cohen's syntactic approach, known as ramified forcing, Solovay's methods were noticeably more algebraic and abstract.
 
@@ -12,93 +14,94 @@ In contrast to Cohen's syntactic approach, known as ramified forcing, Solovay's 
 
 \newcommand*{\Lv}{\operatorname{Lv}}
 \begin{definition}
-    For any \(S\subseteq \mathbf{ORD}\) and \(\lambda\) regular, the \emph{Lévy collapsing order} for \(S\) is
+    For any \(S\subseteq \mathbf{ORD}\), the \emph{Lévy collapsing order} for \(S\) is
     \[
-        \Lv(\lambda, S) = \set{
+        \Lv(S) = \set{
             \begin{split}
                 p: &\ p\text{ is a function} \\
-                   &\land \abs{p} < \lambda \\
-                   &\land \dom(p) \subseteq S\times\lambda \\
-                   &\land \forall (\alpha,\xi)\in\dom(p)\sq{p(\alpha,\xi) = 0 \lor p(\alpha,\xi)\in \alpha}
+                   &\land \abs{p} < \omega \\
+                   &\land \dom(p) \subseteq S\times\omega \\
+                   &\land \forall \Angle{\alpha,n}\in\dom(p)\sq{p(\alpha,n) = 0 \lor p(\alpha,n)\in \alpha}
             \end{split}
         }
     \]
     ordered by reverse inclusion.
 \end{definition}
 \begin{remark}
-    Forcing with the Lévy collapse will add surjections \(\lambda\to\alpha\) for each \(\alpha\in S\).
-    For example, forcing with \(\Lv(\omega,\kappa)\) will make \(M[G]\models \kappa = \omega_1\).
+    Forcing with the Lévy collapse will add surjections \(\omega\to\alpha\) for each \(\alpha\in S\).
+    The canonical application of this is forcing with \(\Lv(\kappa)\), where \(\kappa\) regular,
+    then it will follow that \(M[G]\models \kappa = \omega_1\).
 \end{remark}
 
 We have an immediate consequence of the definition.
 % move this?
 \begin{proposition}
-    \(\Lv(\lambda,S)\) is almost homogeneous.
+    \(\Lv(S)\) is almost homogeneous.
 \end{proposition}
 \begin{proof}
-    Let \(p,q\in\Lv(\lambda,S)\), as \(\lambda\) is regular we can find a bijection \(f:\lambda\to\lambda\) such that
-    for all \((\alpha,\xi)\in\dom(p), (\beta,\zeta)\in\dom(q)\), we have \(f(\xi) \ne \zeta\).
-    We can extend \(f\) into an automorphism \(\pi:\P\to\P\) as follows
-    \[ \pi(r) = \paren{\alpha,\xi}\mapsto r\paren{\alpha, f^{-1}(\xi)} \]
-    where \(\pi(r)\paren{\alpha,\xi}\) is undefined when \(r\paren{\alpha,f^{-1}(\xi)}\) is.
-    Then by our selection of \(f\), we can see that \(\dom(\pi(p)) \cap\dom(q) = 0\) so \(\pi(p)\) and \(q\) are compatible.
+    Let \(p,q\in\Lv(S)\), we can find a bijection \(f:\omega\to\omega\) such that
+    for all \((\alpha,m)\in\dom(p), (\beta,n)\in\dom(q)\), we have \(f(m) \ne n\).
+    We can extend \(f\) into an automorphism \(i:\P\to\P\) as follows
+    \[ i(r) = \paren{\alpha,m}\mapsto r\paren{\alpha, f^{-1}(m)} \]
+    where \(i(r)\paren{\alpha,m}\) is undefined when \(r\paren{\alpha,f^{-1}(m)}\) is.
+    Then by our selection of \(f\), we can see that \(\dom(i(p)) \cap\dom(q) = 0\) so \(i(p)\) and \(q\) are compatible.
 \end{proof}
 
 \begin{lemma}[10.17 in {\autocite[127]{kanamori2003}}] \label{lemma:levy_elementary}
     Elementary properties of the Lévy collapsing order,
     \begin{enumerate}[(a)]
-        \item \(\Lv(\lambda,S)\) is \(\lambda\)-closed.
+        %\item \(\Lv(S)\) is \(\lambda\)-closed.
         \item Suppose that \(S = X\cup Y\) is a disjoint union,
-            and set \(\P_0 = \Lv(\lambda,X)\) and \(\P_1 = \Lv(\lambda,Y)\).
-            Then \(G\) is \(\Lv(\lambda,S)\)-generic iff \(G\) is of the form
+            and set \(\P_0 = \Lv(X)\) and \(\P_1 = \Lv(Y)\).
+            Then \(G\) is \(\Lv(S)\)-generic iff \(G\) is of the form
             \[G = \set{p\cup q: p\in G_0\land q\in G_1 }\]
             where \(G_0\) is \(\P_0\)-generic, \(\paren{\P_1}^{M[G_0]} = \P_1\),
             and \(G_1\) is \(\P_1\)-generic over \(M[G_0]\).
-        \item If \(\kappa\) is regular, \(\kappa > \lambda\) and either \(\kappa\) is inaccessible or \(\lambda = \omega\),
+        \item If \(\kappa\) is uncountable and regular, %\(\kappa > \lambda\) and either \(\kappa\) is inaccessible or \(\lambda = \omega\),
             then \(\Lv(\lambda,\kappa)\) has the \(\kappa\)-c.c.
-        \item Forcing with \(\Lv(\lambda,\kappa)\) when it has \(\kappa\)-c.c. will preserve cardinals \(\leq \lambda\) and \(\geq \kappa\).
-        \item Suppose \(\kappa\) is regular, \(\Lv(\lambda,\kappa)\) has the \(\kappa\)-c.c., and
-            \(G\) is \(\Lv(\lambda,\kappa)\)-generic.
+        \item Forcing with \(\Lv(\kappa)\) when it has \(\kappa\)-c.c. will preserve cardinals \(\geq \kappa\).
+        \item Suppose \(\kappa\) is regular, \(\Lv(\kappa)\) has the \(\kappa\)-c.c., and
+            \(G\) is \(\Lv(\kappa)\)-generic.
             Then for any \(s\in M[G]\) with \(s:\gamma \to \mathbf{ORD}\) where \(\gamma < \kappa\),
-            there is a \(\delta<\kappa\) such that \(s\in M\sq{G\cap\Lv(\lambda,\delta)}\).
+            there is a \(\delta<\kappa\) such that \(s\in M\sq{G\cap\Lv(\delta)}\).
     \end{enumerate}
 \end{lemma}
 
 \begin{remark}
-%    Part (b) is result of Solovay's demonstration that forcing with a product poset is basically iterated forcing.
+%    Part (a) is result of Solovay's demonstration that forcing with a product poset is basically iterated forcing.
 
-    Part (e) tells us that when forcing with \(\Lv(\lambda,\kappa)\),
+    Part (d) tells us that when forcing with \(\Lv(\kappa)\),
     the collapse can be decomposed into stages, and
     any \(<\kappa\) sequence of ordinals will be introduced at some earlier stage.
     This will be made precise in Solovay's ``important lemma''.
 \end{remark}
 
 
-Another ingredient of Solovay's important lemma is this characterisation of \(\Lv(\omega,\set{\alpha})\),
-this characterisation can be thought of as a partial converse to the collapsing nature of \(\Lv(\omega,\set{\alpha})\),
-it says that a partial order which collapses \(\alpha\) into \(\omega\) is ``basically'' \(\Lv(\omega,\set{\alpha})\)
+Another ingredient of Solovay's important lemma is this characterisation of \(\Lv(\set{\alpha})\),
+this characterisation can be thought of as a partial converse to the collapsing nature of \(\Lv(\set{\alpha})\),
+it says that a partial order which collapses \(\alpha\) into \(\omega\) is ``basically'' \(\Lv(\set{\alpha})\)
 in the sense that both posets structurally share a common dense subset.
 More precisely,
 \begin{lemma}\label{lemma:characterisation_collapse}
     Suppose \(M\models \abs{\P} \leq \abs{\alpha}\) and
     \[ 1_\P \forces \exists f\paren{f:\omega\to\alpha \text{ is onto}}.\]
-    Then there is a dense subset \(D_\alpha\subseteq \Lv(\omega,\set{\alpha})\)
+    Then there is a dense subset \(D_\alpha\subseteq \Lv(\set{\alpha})\)
     and an injective embedding \(D_\alpha \to \P\) whose image is dense.
 \end{lemma}
 \begin{proof}
     Set \(\nu = \abs{\alpha}\),
     note that combinatorially, we have for each \(p\in\P\) there is a maximal antichain below \(p\) of cardinality \(\nu\).
 
-    The dense subset of \(\Lv(\omega,\set{\alpha}\) is
+    The dense subset of \(\Lv(\set{\alpha})\) is
     \[ D_\alpha = \set{p: \exists n\in\omega \paren{p: \set{\alpha}\times n\to \alpha}}.\]
 
-    Let \(\mathring{g}\) be name for the surjection \(g:\omega\to G\) that will be added via \(\Lv(\omega,\set{\alpha})\)-forcing.
+    Let \(\mathring{g}\) be name for the surjection \(g:\omega\to G\) that will be added, where \(G\) is \(\P\)-generic.
     Define an injective, dense embedding \(e: D_\alpha\to\P\) by recursion on \(\abs{p}\).
     Set \(e(0) = 1_\P\).
     Suppose \(e(p)\) has already been defined for some \(p\in D_\alpha\) with \(\dom(p) = \set{\alpha}\times n\),
     let \(\Angle{a_\xi^p: \xi<\alpha}\) enumerate a maximal antichain below \(e(p)\) of cardinality \(\nu\).
     Without loss of generality, it can be assumed that for each \(\xi\),
-    \[ a_\xi^p \forces \mathring{g}(n) = \check{r} \text{ for some } r\in \P. \]
+    \[ a_\xi^p \forces \mathring{g}(\check{n}) = \check{r} \text{ for some } r\in \P. \]
     Now set \(e(p\cup \set{\Angle{(\alpha, n), \xi}}) = a_\xi^p\) for each \(\xi<\alpha\).
 
     We can see that \(e\) is injective.
@@ -111,50 +114,50 @@ More precisely,
     But also by construction, \(e(p)\) has already decided \(\mathring{g}(n)\) which means that \(e(p)\) must be below \(r\).
 \end{proof}
 
-\begin{corollary}
-    The conclusion of the lemma shows that \(\P\) and \(\Lv(\omega,\set{\alpha})\) are structurally similar,
-    so if \(G\) is \(\P\)-generic, then there exists a \(\Lv(\omega,\set{\alpha})\)-generic filter \(H\) with \(M[G] = M[H]\),
+\begin{remark}
+    The conclusion of the lemma shows that \(\P\) and \(\Lv(\set{\alpha})\) are structurally similar,
+    so if \(G\) is \(\P\)-generic, then there exists a \(\Lv(\set{\alpha})\)-generic filter \(H\) with \(M[G] = M[H]\),
     and vice-versa.
-\end{corollary}
+\end{remark}
 
 
 \newcommand*{\Q}{{\mathbb{Q}}}
 We now prove a key technical fact about the generic extension of the Lévy collapse
-which allows us to enlarge the ground model of Lévy's construction to absorb a specified real of the extension.
+which allows us to enlarge the ground model of Lévy's construction to absorb any countable sequence of ordinals in the extension.
 \begin{lemma}[Solovay's ``important lemma''] \label{lemma:important}
-    Suppose \(\kappa>\omega\) is regular and \(G\) is \(\Lv(\omega,\kappa)\)-generic.
+    Suppose \(\kappa>\omega\) is regular and \(G\) is \(\Lv(\kappa)\)-generic.
     For any \(s:\omega\to\mathbf{ORD}\), \(s\in M[G]\),
-    there is a \(\Lv(\omega,\kappa)\)-generic filter \(H\) over \(M[s]\)
+    there is a \(\Lv(\kappa)\)-generic filter \(H\) over \(M[s]\)
     such that \(M[G] = M[s][H]\).
 \end{lemma}
 \begin{proof}
-    Apply \Cref{lemma:levy_elementary} (e), let \(\delta<\kappa\) such that \(s \in M[G\cap\Lv(\omega,\delta)]\).
+    Apply \Cref{lemma:levy_elementary} (d), let \(\delta<\kappa\) such that \(s \in M[G\cap\Lv(\delta)]\).
     Decompose the collapse into stages by defining
     \begin{align*}
-        G_0 &= G\cap\Lv(\omega,\delta), \\
-        G_1 &= G\cap\Lv(\omega,\set{\delta}), \\
-        G_2 &= G\cap\Lv(\omega,\kappa\setminus(\delta+1)).
+        G_0 &= G\cap\Lv(\delta), \\
+        G_1 &= G\cap\Lv(\set{\delta}), \\
+        G_2 &= G\cap\Lv(\kappa\setminus(\delta+1)).
     \end{align*}
 
-    By \Cref{lemma:levy_elementary} (b), \(G_0\) is generic over \(\Lv(\omega,\delta)\),
+    By \Cref{lemma:levy_elementary} (a), \(G_0\) is generic over \(\Lv(\delta)\),
     applying intermediate model property (\Cref{proposition:intermediate_model_property})
     we have \(M[G_0] = M[s][H_0]\) where \(\P\in M[s]\) and \(H_0\) is generic over \(\P\).
 
-    Let \(\Q = \P\times\Lv(\omega,\set{\delta}) \in M[s]\),
-    by \Cref{lemma:iterated_forcing_product}, \(M[s][H_0][G_1]\) is \(\Q\)-generic over \(M[s]\).
-    Now
-    \[ \abs{\Q} \leq \abs{\Lv(\omega,\delta)\cup\Lv(\omega,\set{\delta})} = \abs{\Lv(\omega,\delta+1)} = \abs{\delta} \]
-    and since \(\Q\) contains a copy of \(\Lv(\omega,\set{\delta})\),
+    Let \(\Q = \P\times\Lv(\set{\delta}) \in M[s]\),
+    applying Product Lemma (\Cref{lemma:iterated_forcing_product}), \(M[s][H_0][G_1]\) is \(\Q\)-generic over \(M[s]\).
+    The proof of Product Lemma actually gives an upper bound on the cardinality of \(\Q\), so
+    \[ \abs{\Q} \leq \abs{\Lv(\delta)\times\Lv(\set{\delta})} = \abs{\Lv(\delta+1)} = \abs{\delta} \]
+    and since \(\Q\) contains a copy of \(\Lv(\set{\delta})\),
     \[ 1_\Q \forces \exists f\paren{f:\omega\to\delta \text{ is onto}}. \]
     Applying \Cref{lemma:characterisation_collapse}
-    there is a \(\Lv(\omega,\set{\delta})\)-generic (over \(M[s]\)) filter \(H_1\) such that \[ M[s][H_1] = M[s][H_0][G_1].\]
+    there is a \(\Lv(\set{\delta})\)-generic (over \(M[s]\)) filter \(H_1\) such that \[ M[s][H_1] = M[s][H_0][G_1].\]
 
-    As also \( 1_{\Lv(\omega,\delta+1)} \forces \exists f\paren{f:\omega\to\delta \text{ is onto}} \),
-    there is a \(\Lv(\omega,\delta+1)\)-generic (over \(M[s]\)) filter \(H_2\) such that \[ M[s][H_2] = M[s][H_1]. \]
+    As also \( 1_{\Lv(\delta+1)} \forces \exists f\paren{f:\omega\to\delta \text{ is onto}} \),
+    there is a \(\Lv(\delta+1)\)-generic (over \(M[s]\)) filter \(H_2\) such that \[ M[s][H_2] = M[s][H_1]. \]
 
-    Now we can repeatedly apply \Cref{lemma:levy_elementary} (b) to get
+    Now we can repeatedly apply \Cref{lemma:levy_elementary} (a) to get
     \[ M[G] = M[G_0][G_1][G_2] = M[s][H_0][G_1][G_2] = M[s][H_1][G_2] = M[s][H_2][G_2] \]
-    and it happens that \(H_2 \cup G_2\) is of the form in \Cref{lemma:levy_elementary} (b), and thus generic over \(M[s]\).
+    and it happens that \(H_2 \cup G_2\) is of the form in \Cref{lemma:levy_elementary} (a), and thus generic over \(M[s]\).
 \end{proof}
 
 
@@ -267,9 +270,10 @@ Now we have an important characterization of \(\B^*\)-forcing.
     \[ \set{x} = \bigcap\set{A_c^{M[G]}: c\in M \text{ is a closed code and } A_c^M\in G} \]
     where the intersection is nonempty due to \(G\) being a filter and the result is a singleton due to \Cref{eqn:borel_algebra_dense}.
 
-    For any closed code \(c\in M\).  If \(A_c^M\in G\) then \(x\in A_c^{M[G]}\) by definition of \(c\).
+    For any closed code \(c\in M\).  If \(A_c^M\in G\) then \(x\in A_c^{M[G]}\) by definition of \(x\).
     Conversely suppose \(x\in A_c^{M[G]}\),
-    to show that \(A_c^M\in G\), (by \Cref{eqn:borel_algebra_dense2})
+    to show that \(A_c^M\in G\),
+    by \Cref{eqn:borel_algebra_dense2}
     we just have to show that \(A_c^M\) meets every closed set in \(G\).
     Let \(d\) be a closed code with \(A_d^M\in G\),
     we have \(x \in A_c^{M[G]} \cap A_d^{M[G]}\) by definition of \(x\),
@@ -299,12 +303,12 @@ hence random.
     Suppose \(x\) is random over \(M\) with \(G\) the witnessing \(\B^*\)-generic filter.
     Let \(c\in M\) be a \(G_\delta\) code for a null set, we want \(x\notin A_c\).
     Applying standard fact of measure theory, in \(M\) we have
-    \[ D = \set{ C\in\B^*: C\text{ closed} \land C\subseteq \paren{2^\omega\setminus A_c} } \text{ is dense.} \]
+    \[ D = \set{ C\in\B^*: C\text{ closed} \land C\subseteq \paren{2^\omega\setminus A_c} }\quad \text{ is dense.} \]
     By genericity, \(G\) meets \(D\) so let \(d\in M\) be a closed code such that \(A_d^M \in G\cap D\),
     then \(x\in A_d^{M[G]}\) by definition of \(x\),
     so by absoluteness, \(x\in A_d\) which means \(x\notin A_c\).
 
-    Conversely suppose for all \(G_\delta\) codes for null set \(c\in M\), \(x\notin A_c\).
+    Conversely suppose for all \(c\in M\) which is a \(G_\delta\) code for a null set, \(x\notin A_c\).
     We recover \(G\) from \(x\) in the manner of proof of \Cref{theorem:random_real}
     and show that \(G\) is \(\B^*\)-generic over \(M\).
     This means we just need to show that whenever \(D\in M\) is dense in \(\B^*\),
@@ -334,10 +338,9 @@ hence random.
 For this section, we assume \(\kappa\in M\) and \(M\models \kappa \text{ is an inaccessible cardinal}\).
 
 \begin{definition}
-    A set \(X\) is \emph{definable from a countable sequence of ordinals} iff
+    A set \(X\) is \(\mathbf{ORD}^\omega\)-definable, or \emph{definable from a countable sequence of ordinals} iff
     for some \(s:\omega\to\mathbf{ORD}\) and some formula \(\phi(x_1,x_2)\),
     \[ y\in X \text{ iff } \phi(s,y). \]
-    Denote as \(X\in \mathbf{COD}\).
 \end{definition}
 \begin{remark}
     Formally, to avoid quantifying over all logical formulas in the metatheory, we use the reflection principle.
@@ -345,8 +348,8 @@ For this section, we assume \(\kappa\in M\) and \(M\models \kappa \text{ is an i
 
 The methods used in \autocite{myhillscott1971} allow us to prove this fact.
 \begin{proposition}
-    The collection of all hereditarily \(\omega\)-ordinal definable sets
-    \(\mathbf{HCOD} = \set{X: \trcl(X) \subseteq \mathbf{COD}}\)
+    The collection of all hereditarily \(\mathbf{ORD}^\omega\)-definable sets
+    %\(\mathbf{HCOD} = \set{X: \trcl(X) \subseteq \mathbf{COD}}\)
     is an inner model of \(\ZF\).
 \end{proposition}
 
@@ -358,7 +361,7 @@ We first need to establish a key lemma which is built on the previously-establis
 \end{lemma}
 \begin{proof}
     For any \(s\in \mathbf{ORD}^\omega \cap M[G]\), by \Cref{lemma:important}
-    there is a \(\P = \Lv(\omega,\kappa)\)-generic filter \(H\) over \(M[s]\) such that \(M[G] = M[s][H]\).
+    there is a \(\P = \Lv(\kappa)\)-generic filter \(H\) over \(M[s]\) such that \(M[G] = M[s][H]\).
     Since \(\P\) is almost homogeneous, applying \Cref{proposition:property_almost_homo} with ground model \(M[s]\) we have
     \[ M[s][H]\models \phi(s) \text{ iff } M[s] \models \left\ulcorner 1_\P \forces \phi(\check{s}) \right\urcorner. \]
     As forcing is definable in the ground model,
@@ -366,40 +369,101 @@ We first need to establish a key lemma which is built on the previously-establis
 \end{proof}
 
 \begin{theorem}
-    Let \(G\) be \(\Lv(\omega,\kappa)\)-generic,
+    Let \(G\) be \(\Lv(\kappa)\)-generic,
     then in \(M[G]\), each subset of reals definable from a countable sequence of ordinals is Lebesgue measurable.
 
     In particular, there is a \textbf{Solovay model} \(N\), with \(M \subseteq N \subseteq M[G]\),
-    containing precisely \(\mathbf{HCOD}^{M[G]}\) where every subset of reals is Lebesgue measurable.
+    containing precisely all hereditarily \(\mathbf{ORD}^\omega\)-definable sets where every subset of reals is Lebesgue measurable.
 \end{theorem}
 \begin{proof}
     Work in \(M[G]\),
-    for any \(a\in\mathbf{ORD}^\omega\),
-    by \Cref{lemma:levy_elementary} (e) \(\kappa\) remains inaccessible in \(M[a]\),
-    so \(\abs{2^\omega}^{M[a]} < \kappa\) which gives us that
-    \[ 2^\omega \cap M[a] \text{ is countable}. \]
-    Suppose \(A\subseteq 2^\omega\) is \(\mathbf{COD}\), then for some \(s:\omega\to\mathbf{ORD}\) and \(\phi(v_1,v_2)\),
-    \[ x\in A \text{ iff } \phi(a,x). \]
+    for any \(s\in\mathbf{ORD}^\omega\),
+    by \Cref{lemma:levy_elementary} (d) \(\kappa\) remains inaccessible in \(M[s]\),
+    so \(\paren{\abs{\omega^\omega} < \kappa}^{M[s]}\) which gives us that
+    \[ \omega^\omega \cap M[s] \text{ is countable}. \]
+    Suppose \(A\subseteq 2^\omega\) is \(\mathbf{ORD}^\omega\)-definable,
+    then for some \(s:\omega\to\mathbf{ORD}\) and \(\phi(v_1,v_2)\),
+    \[ x\in A \text{ iff } \phi(s,x). \]
     Applying \Cref{lemma:solovay_key} we have another formula \(\tilde{\phi}(v_1,v_2)\) satisfying
-    \[ x\in A \text{ iff } M[a][x] \models \tilde{\phi}(a,x). \]
-    Consider random-real forcing over \(M[a]\), by \Cref{theorem:bstar_forcing_avoid_null_set} we have
+    \[ x\in A \text{ iff } M[s][x] \models \tilde{\phi}(s,x). \]
+    Consider random-real forcing over \(M[s]\), by \Cref{theorem:bstar_forcing_avoid_null_set} we have
     \[
-        \set{x\in2^\omega: x\text{ is not random over } M[a]}
-        = \bigcup \set{A_c: c\in V[a] \text{ is a } G_\delta \text{ code for a null set}}
+        \set{x\in2^\omega: x\text{ is not random over } M[s]}
+        = \bigcup \set{A_c: c\in M[s] \text{ is a } G_\delta \text{ code for a null set}}
     \]
     and the expression on the right is a countable union of null sets, so these sets are null.
     As Lebesgue measurable sets are characterised by being almost equal to Borel sets,
     we just need to find a Borel set \(X\) such that the symmetric difference \(A\triangle X\) only consists of non-random reals.
 
-    For the \(\B^*\)-forcing argument over \(M[a]\),
+    For the \(\B^*\)-forcing argument over \(M[s]\),
     let \(\mathring{r}\) denote the canonical name for the random real that will be added.
-    Now let \(Y \in M[a]\) be a maximal antichain consisting of closed sets
-    that force either \(\tilde{\phi}(\check{a},\mathring{r})\) or its negation.
-    If \(x\) is random over \(M[a]\),
-    \(x\in A\) iff \(M[a][x]\models \tilde{\phi}(a,x)\)
-    iff \(p\forces \tilde{\phi}(\check{a},\mathring{r})\) for some \(p\in G\) and \(\B^*\)-generic \(G\).
-    As \(G\) is generic, it meets some \(q\in Y\) which by \Cref{theorem:random_real} gives us that
-    \[ x\in A\text{ iff } x\in \bigcup\set{A_c: A_c^{M[a]}\in Y\land A_c^{M[a]} \forces \tilde{\phi}(\check{a},\mathring{r})}. \]
+    Now let \(Y \in M[s]\) be a maximal antichain consisting of closed sets
+    that force either \(\tilde{\phi}(\check{s},\mathring{r})\) or its negation.
+    If \(x\) is random over \(M[s]\),
+    \(x\in A\) iff \(M[s][x]\models \tilde{\phi}(s,x)\)
+    iff \(p\forces \tilde{\phi}(\check{s},\mathring{r})\) for some \(p\in H\) and \((\B^*)^{M[s]}\)-generic \(H\).
+    As \(H\) is generic, it meets \(Y\) which by \Cref{theorem:random_real} gives us that
+    \[ x\in A\text{ iff } x\in \bigcup\set{A_c: A_c^{M[s]}\in Y\land A_c^{M[s]} \forces \tilde{\phi}(\check{s},\mathring{r})}. \]
     By c.c.c. of \(\B\), \(Y\) is countable, so the expression on the right is in fact a Borel set,
     which witnesses \(X\).
 \end{proof}
+
+\section{Properties of Solovay Model}
+
+\subsection{Dependent Choice}
+
+The Axiom of Dependent Choice is a weaker form of Axiom of Choice that is sufficient to develop most of analysis.
+
+\begin{axiom}[Dependent Choice]
+    \[
+        \forall X\forall R\paren{
+            \begin{split}
+                &X\ne0 \land R\subseteq X\times X \land \paren{\forall x\in X}\paren{\exists y\in X}\paren{\Angle{x,y}\in R} \\
+                &\qquad \rightarrow \paren{\exists f\in X^\omega}\paren{\forall n\in\omega}\paren{\Angle{f(n),f(n+1)}\in R}
+            \end{split}
+        }
+    \]
+\end{axiom}
+It turns out that Dependent Choice holds in the Solovay model, which shows that Dependent Choice is indeed a strictly weaker axiom.
+\begin{lemma}
+    Dependent Choice holds in \(N\).
+\end{lemma}
+\begin{proof}
+    Let \(X,R\in N\) satisfy the hypotheses of Dependent Choice,
+    applying \Axiom{Choice} in \(M[G]\),
+    we can recursively define \(f:\omega\to X\) with \(\Angle{f(n),f(n+1)}\in R\) for all \(n\),
+    which will be \(\mathbf{ORD}^\omega\)-definable, and hence be in \(N\).
+\end{proof}
+
+We can combine our results to make the following observation.
+\begin{observation}
+    The existence of non-measurable sets of real numbers is not provable from the Axiom of Dependent Choice.
+\end{observation}
+
+\subsection{Relative Consistency}
+
+In the previous section, we started off from a base model \(M\) which contains a (strongly) inaccessible cardinal.
+The consistency result obtained was
+\[
+    \begin{split}
+        &\Con\paren{\ZFC + \exists \text{ strongly inaccessible cardinal}} \\
+        &\qquad \rightarrow \Con\paren{\ZF + \lnot\Axiom{Choice} + \text{every subset of $\mathbb{R}$ is Lebesgue measurable}}.
+    \end{split}
+\]
+
+In Gödel's constructible universe \(\mathbf{L}\), the Generalized Continuum Hypothesis holds,
+so if \(\kappa\) is weakly inaccessible,
+\[ \mathbf{L}\models \kappa\text{ is strongly inaccesible}. \]
+This gives the consistency result that
+\[
+    \begin{split}
+        &\Con\paren{\ZF + \exists\text{ weakly inaccessible cardinal}} \\
+        &\qquad \rightarrow \Con\paren{\ZFC + \exists\text{ strongly inaccessible cardinal}}.
+    \end{split}
+\]
+
+Combining the consistency results together,
+this means we could have started from a ground model of only \ZF and a weakly inaccessible cardinal and prove the same result.
+
+It is then natural to ask if the result can be proved without assuming the consistency of having an inaccessible cardinal,
+Shelah in \autocite{shelah1984} showed that the assumption cannot be dropped.
