@@ -106,17 +106,9 @@ What we have just done is produce a model of \ZFCminus with a single indecomposa
 \end{lemma}
 \begin{proof}
     \(\WF(A)\) being transitive is obvious and all transitive models satisfy \Axiom{Extensionality} by \Cref{lemma:transitive_extensional}.
-
-    \Axiom{Comprehension} follows from \(\WF(A)\) being closed under power set.
-
-    \Axiom{Power Set} follows from \Cref{lemma:power_set}.
-
-    \Axiom{Pairing} and \Axiom{Union} looks easy.
-
-    \Axiom{Replacement} -- For any definable class function \(\F\) and any set \(X\in\WF(A)\), take minimum \(\alpha\) such that the \(\mathbf{F}\)-image of \(X\) is contained in \(R(\alpha, A)\).
-
-    \Axiom{Infinity} looks obvious.
-
+    \(\WF(A)\) is almost universal as any \(x\in\WF(A)\) is in \(R(\alpha,A)\) for some \(\alpha\),
+    and \(R(\alpha,A)\in R(\alpha+1,A)\subseteq \WF(A)\).
+    \(\WF(A)\) is also closed under he power set operation, so it satisfies \Axiom{Comprehension}.
     Assume \Axiom{Choice}, then \(\Axiom{Choice}^{\WF(A)}\) holds since \Axiom{Choice} can be expressed as a \(\Pi_1\) statement which relativizes down.
 \end{proof}
 
@@ -138,8 +130,8 @@ Now we can produce a model of \textsf{ZFA} with infinitely many atoms, as hinted
 
 \newcommand{\Con}{\operatorname{Con}}
 In this section, we work in a universe \(\V = \WF(A)\) that satisfies \ZFminus, where \(A\) is the infinite set of all atoms.
-We aim to show the result of Fraenkel-Mostowski, that being
-\(\Con(\ZFminus) \to \Con(\ZFminus + \lnot\textsf{Choice})\).
+We aim to show the following result of Fraenkel-Mostowski,
+\[\Con(\ZFminus) \to \Con(\ZFminus + \lnot\textsf{Choice}).\]
 
 Consider \(G\) the group of permutations on \(A\),
 as \(\V\) is built by iterating the powerset operation starting from \(A\),
@@ -147,7 +139,7 @@ for any \(\pi\in G\) we can naturally extend \(\pi\) to be a permutation \(\V\to
 \begin{definition}
     Let \(\pi \in G\), abusing notation, we extend \(\pi\) by
     \begin{itemize}
-        \item \(\pi(a) = a\) for atomic \(a\in A\),
+        \item \(\pi(a) = \pi(a)\) for atomic \(a\in A\),
         \item \(\pi(y) = \set{\pi(z): z\in y}\) otherwise.
     \end{itemize}
 \end{definition}
