@@ -68,7 +68,7 @@ We will make this precise as follows,
             and so on. Now we can check that \(\F(\set{0^{\V,\E},1^{\V,\E},2^{\V,\E},\dots})\) is \(\omega^{\V,\E}\).
 
         \item For \(\textsf{Choice}^{\V,\E}\) we can verify that it is in fact
-            \[ \forall A~\forall R\paren{\F(R) \text{ well-orders } \F(A)} \]
+            \[ \forall A~\exists R\paren{\F(R) \text{ well-orders } \F(A)} \]
             which follows from \textsf{Choice} in \(\V\).
     \end{itemize}
     The other axioms can be shown to hold in \(\V,\E\) with similar methods.
@@ -114,7 +114,7 @@ What we have just done is produce a model of \ZFCminus with a single indecomposa
 
 Now we can produce a model of \textsf{ZFA} with infinitely many atoms, as hinted at the start of the section.
 \begin{theorem}
-    Assuming consistency of \ZFminus, the theory of \(\ZFminus + (\V=\WF(A))\) where \(A\) is an infinite set satisfying \(\forall x\in A\paren{x = \set{x}}\).
+    Assuming consistency of \ZFminus, the theory of \(\ZFminus + (\V=\WF(A))\) where \(A\) is an infinite set satisfying \(\forall x\in A\paren{x = \set{x}}\) is consistent.
 \end{theorem}
 \begin{proof}
     Define \(\F:\V\to\V\) such that for each \(n\in\omega\),
@@ -184,7 +184,7 @@ for any \(i\in G\) we can naturally extend \(i\) into be a permutation \(i_*:\V\
     Note that for all \(x\), if \(B\) witnesses \(x\in \mathbf{S}\),
     then \(i''B\) witnesses \(i_* x\in \mathbf{S}\) for any permutation \(i\).
     Since the \(A\)-rank of \(i_* x\) is the same as that of \(x\),
-    we have \(i_*\paren{R(\alpha,A) \cap \mathbf{HS}} = R(\alpha,A) \cap \mathbf{HS}\) for all \(\alpha, i\).
+    we have \(i_*\paren{R(\alpha,A) \cap \mathbf{HS}} = R(\alpha,A) \cap \mathbf{HS}\) for all \(i\).
     In particular, the empty set witnesses that \(R(\alpha,A)\cap\mathbf{HS}\) is symmetric.
 
     Since \(\mathbf{HS}\) is transitive, almost universal and closed under Gödel operations, by \Cref{theorem:jech_zf_model} \(\mathbf{HS}\) is a model of \ZFminus.
