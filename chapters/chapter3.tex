@@ -130,7 +130,7 @@ Given a normal filter \(\mathscr{F}\) we can use it to define the notion of \emp
     In an argument similar to that in \Cref{theorem:f-k-model-zfminus}, we can see that \(\G_{\rho_i} = \G_\sigma \cap \G_\tau \in \mathscr{F}\).
 
     Next we check that \(N\) is almost universal.
-    It suffices to show that at each \(\alpha\), \(Y = \val_G''(\mathbf{HS} \cap M^P_\alpha)\) is in \(N\).
+    It suffices to show that at each \(\alpha\), \(Y = \val_G''(\mathbf{HS} \cap M^\P_\alpha)\) is in \(N\).
     Define a name for \(Y\) as
     \[ \mathring{Y} = \set{ \Angle{\tau,1_\P}: \tau\in \mathbf{HS} \cap  M^\P_\alpha }. \]
     It is easy to see that \(\dom(\mathring{Y}) \subseteq \mathbf{HS}\), we need to check that \(\mathring{Y}\) is a symmetric name.
@@ -139,7 +139,7 @@ Given a normal filter \(\mathscr{F}\) we can use it to define the notion of \emp
     so \(i_*\) applied to a symmetric name stays symmetric.
     Furthermore if \(\tau\in M^\P_\alpha\), \(i_* \tau\in M^\P_\alpha\) too,
     so we have \(i_*''(\mathbf{HS} \cap  M^\P_\alpha) = \mathbf{HS} \cap  M^\P_\alpha \) for all \(i\),
-    this means that \(\G_{\mathring{Y}} = \G\) and that \(\mathring{Y}\) is symmetric.
+    this means that \(\G_{\mathring{Y}} = \G \in \mathscr{F}\) and that \(\mathring{Y}\) is symmetric.
 \end{proof}
 
 \section{Basic Cohen Model}
@@ -171,8 +171,8 @@ Any permutation \(i_0: \omega \to \omega\) induces an automorphism \(i: \mathbb{
 so we are extending a permutation on \(\omega\) into one on \(\Fn(\omega\times\omega, 2)\)
 by applying it to the first coordinate of the domain.
 
-Let \(\G\) be all such induced permutations on \(\mathbb{P}\), then for any finite \(B\subseteq \omega\),
-we look at permutations induced by ones in its stabilizer
+Let \(\G\) be all such induced automorphism on \(\mathbb{P}\), then for any finite \(B\subseteq \omega\),
+we look at automorphisms extended from its stabilizer
 \[ \G_B = \set{ i\in \G: \forall n\in B\left( i_0 n = n \right) }. \]
 Use stabilizers of all finite subsets to generate a normal filter
 \[ \mathscr{F} = \set{H: \exists B\subseteq \omega \left(\abs{B}<\omega \land \G_B \subseteq H\right) }. \]
@@ -182,11 +182,8 @@ By computation, we can verify the following property.
 \begin{proposition}
     \(i_* (\mathring{x}_n) = \mathring{x}_{i_0(n)} \).
 \end{proposition}
-Its immediate consequence is:
-\begin{corollary}
-    \(\mathring{x}_n\) is symmetric as its stabilizer contains \(\G_\set{n}\).
-\end{corollary}
-As a result, we know that \(x_n\in N\) and \(A\in N\).
+This means that the stabilizer of \(\mathring{x}_n\) contains \(\G_\set{n}\), therefore \(\mathring{x}_n\) is symmetric.
+Moreover, as \(i_*(\mathring{A}) = \mathring{A}\), we see that both \(x_n\in N\) and \(A\in N\).
 
 \begin{lemma}
     \(N\models x_j\ne x_k\) whenever \(j\ne k\).

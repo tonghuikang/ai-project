@@ -40,7 +40,7 @@ We have an immediate consequence of the definition.
 \end{proposition}
 \begin{proof}
     Let \(p,q\in\Lv(S)\), we can find a bijection \(f:\omega\to\omega\) such that
-    for all \((\alpha,m)\in\dom(p), (\beta,n)\in\dom(q)\), we have \(f(m) \ne n\).
+    for all \(\Angle{\alpha,m}\in\dom(p), \Angle{\beta,n}\in\dom(q)\), we have \(f(m) \ne n\).
     We can extend \(f\) into an automorphism \(i:\P\to\P\) as follows
     \[ i(r) = \paren{\alpha,m}\mapsto r\paren{\alpha, f^{-1}(m)} \]
     where \(i(r)\paren{\alpha,m}\) is undefined when \(r\paren{\alpha,f^{-1}(m)}\) is.
@@ -152,7 +152,7 @@ which allows us to enlarge the ground model of Lévy's construction to absorb an
     Applying \Cref{lemma:characterisation_collapse}
     there is a \(\Lv(\set{\delta})\)-generic (over \(M[s]\)) filter \(H_1\) such that \[ M[s][H_1] = M[s][H_0][G_1].\]
 
-    As also \( 1_{\Lv(\delta+1)} \forces \exists f\paren{f:\omega\to\delta \text{ is onto}} \),
+    As \(\Lv(\delta+1)\) also collapses \(\delta\), that is \( 1_{\Lv(\delta+1)} \forces \exists f\paren{f:\omega\to\delta \text{ is onto}} \),
     there is a \(\Lv(\delta+1)\)-generic (over \(M[s]\)) filter \(H_2\) such that \[ M[s][H_2] = M[s][H_1]. \]
 
     Now we can repeatedly apply \Cref{lemma:levy_elementary} (a) to get
