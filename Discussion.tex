@@ -1,0 +1,95 @@
+% camera ready, but values need to be updated
+% 6.2 can be extended if applicable
+\section{Results and Discussion}
+\label{section_discussion}
+
+\subsection{Agent Performance and Analysis}
+\label{subsection_results}
+
+Table \ref{table_scores} shows the performance of our agents on the leaderboard. The version refers to the notebook version. The count refers to how many of the same agents have we submitted. The mean, standard deviation and maximum ratings of the agents submitted are also tabulated. The number of wins of the agent against three copies of the original AlphaGeese agent over 100 matches is recorded under column AG.
+
+% Table to be updated
+% To compute win rate against AlphaGeese
+
+\begin{table}[hbt!]
+\begin{tabular}{lllllll}
+\textbf{Model}                & Ver & Count & AG & Mean          & Std  & Max           \\
+AlphaGeese without edits      & 1   & 35    & 26 & 1022          & 12.5 & 1050          \\
+Use Finetuned Agent           & 13  & 11    & \textbf{35} & 1024 & 16.5 & 1045          \\
+Assume Deterministic Rivals   & 14  & 10    & 28 & \textbf{1036} & 12.2 & \textbf{1055} \\
+Use Overage Time to Tie Break & 17  & 8     & 25 & 1033          & 12.7 & 1054          \\
+Softmasking Dangerous Moves   & 32  & 8     & 30 & 998           & 22.9 & 1022         
+\end{tabular}
+\caption{Comparison of Submitted Agents}
+\label{table_scores}
+\end{table}
+
+The performance distribution of AlphaGeese closely matches the second peak illustrated in Figure \ref{figure_metagame}. Notably, submitting sufficient copies of AlphaGeese \cite{notebook_alphageese_baseline} can bring the participant a very good chance at winning a  Kaggle Bronze medal, which requires a cutoff of 1050 (to be determined).
+
+The model with the best mean rating is Version 14 that assumes that the opponent is deterministic. At the close of submissions before the scores are allowed to converge further, copies of this agent has a small standard deviation in rating. The high mean and low variance score might be due to its consistent superior performance against the PubHRL submissions, while under-performing against better agents also due to the same absolute assumption of its rivals.
+
+While our scores converge, our best agent frequently rotates between Versions 1, 13, 14 and 17. Version 14 and Version 17 has a higher and similar mean score and it expected that they deliver our top agent. Version 1 and Version 13 has a lower mean score, but is still our top agent at times. For Version 1, this is because we submitted many of its copies than the other. For Version 13, this is because the standard deviation of its rating is higher.
+
+Regrettably for Version 32, soft-masking dangerous moves produces an agent worse than the original AlphaGeese agent. While the soft-masking addresses scenarios where the neural network model performs badly, encouraging more alternate moves may result in shallower search depth. 
+
+\subsection{Survey of Top Performing Strategies}
+\label{subsection_survey_of_top_performers}
+
+This section summarises the successful strategies shared by the top participants. These strategies were shared when the submissions for the competition closed. 
+
+\subsubsection{Imitating the Top Agents}
+\label{subsubsection_imitation}
+
+Match replays of submitted agents are publicly available \cite{notebook_scraper}. A model can be trained by learning the moves of top-rated models. The score of models trained by imitation learning is reported to be rated at around the mid-1100s, which is more than sufficient for a Kaggle Sliver medal \cite{sharing_robga}. The AlphaGeese author used the same PubHRL model architecture but trained with imitation learning obtained a score very near the Kaggle Gold medal boundary \cite{notebook_alphageese_imitation}.
+
+\subsubsection{Optimising Model Inference Speed}
+\label{subsubsection_speedup}
+
+One top participant \cite{sharing_robga} exported the PyTorch model into and an ONNX Runtime. ONNX Runtime parses the model to identify optimization opportunities and provides access to the best hardware acceleration available \cite{website_onnx}. The optimisation has improved the model inference time from 3.42 milliseconds to 0.77 milliseconds \cite{sharing_robga}. By improving model inference times by approximately four times, it is possible to search four times as many more nodes and allow a better performance without any tradeoff.
+
+\subsubsection{Differentiating the Agent Behaviour}
+\label{subsubsection_time_diff}
+
+While the agents are denied internet connection, the agents have access to the system date and time. It is possible to program the agent to have different behaviour after a predefined time. 
+One top participant \cite{sharing_robga} implemented a 90-minute timer so that when the agent is competing with lower-ranked agents right after when the agent is submitted, the agent will not make risky moves. This submission strategy is in response to the observation that agents rated below 1000 can make dangerous moves. This helps the agent to climb the ratings quickly.
+
+As observed in Table \ref{table_scores}, our agents have a different standard deviation in ratings even though their mean is similar. There is a possibility that some of our agents perform better at higher ratings if given a chance to reach the rating band.
+
+The extension to this idea is for the agent to use a fake strategy until the close of submissions. This way, the team can submit more duplicate agents for a better chance at a higher maximum rating, while reducing imitation attacks.
+
+\subsubsection{Building an Evaluation System}
+\label{subsubsection_eval}
+
+Another popular practice of top teams is to implement a systematic procedure to benchmark their agents. Submitting the agent into the competition is the most convenient method of getting accurate feedback for how well the agent is performing. However, each team can only submit up to 5 agents each day, and it will take around a day to converge to a stable score. The stable score it converges to will still have a large standard deviation. Moreover, submitting your agent onto the leaderboard leaves the agent prone to imitation by other competitors.
+
+The evaluation system implemented by top teams is similar to how we evaluate our agents against the original AlphaGeese agent as describe in Subsection \ref{subsection_results}, but at a larger scale and in parallel. Some teams went on to implement their own "league of agents" to estimate the rating of their agents \cite{sharing_ironbar}. A robust and efficient evaluation system will allow more variants of agents to be developed and tested.
+
+% \subsubsection{Training on Different Game Rules}
+% \label{subsubsection_diff_rules}
+
+% There are some ideas that we have after the close of the submission.
+
+% One idea is to train the model on a game with slightly different rules. In the model, the game ends at the 200th turn. Another fine rule of the game is that agents will have their length shortened by one at every 40 turns. Our suggestion is to modify these rules in training. The agent will train a board that will end its game at a probability of 1/100 after the 100th turn. Moreover, the agent will no longer shorten its length at every 40 turns. This allows the payout to be computed at every point in time.
+
+
+% \subsubsection{TBC, Waiting for more top participants to share}
+
+% TBC \cite{sharing_robga}
+% TBC \cite{sharing_ironbar}
+
+
+% \subsection{Takeaways for Reinforcement Learning}
+
+% TBC
+
+% more like awareness, rather than fighting against them
+% \noindent Metagaming is a term used in role-playing games, which describes a player's use of real-life knowledge concerning the state of the game to determine their character's actions, when said character has no relevant knowledge or awareness under the circumstances. Metagaming are illustrated as strategies (ie. submitted agent models) that allow them to beat other agents. With these models, these agents will be able to leverage on the underlying Artificial Intelligence methodology to increase their performance in an adversarial setting.
+% \\[1em]
+% There are two very popular models in Hungry Geese Kaggle Competition
+
+
+\section{Conclusion}
+
+This is our first project at reinforcement learning and we have glad to be able to make improvements on the agents published during the competition.
+
+There are a few takeaways for future reinforcement learning projects. It is important to start from the state-of-the-art when designing the neural network model. The PubHRL neural network model is inspired by AlphaGo, and has proven to have good performance. The time-complexity tradeoff is also needed to be considered in the design of the neural network model, as more time-consuming model will result in a shallower search. We also sense that reinforcement learning models favors simplicity in both the design of the neural network model and the Monte Carlo Tree Search. It is also important to build a validation process to conduct ablation tests on improvements that you are experimenting. If you have access to plays by the top agents, imitation learning is able to provide strong results with a simple setup. We hope these takeaways can help participants get started in future reinforcement learning projects.

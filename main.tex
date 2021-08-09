@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{csvsimple}
+\usepackage{amsmath}
+
+% https://tex.stackexchange.com/a/256190/121794
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usepackage{breakurl}
+\usepackage[breaklinks]{hyperref}
+\usepackage[parfill]{parskip}
+
+\title{Wild Goose Chase}
+\author{Tong Hui Kang, Wong Tin Kit, Tey Shi Ying, Mario Josephan}
+\date{8 August 2021}
+
+\graphicspath{{./images/}}
+
+\begin{document}
+
+\maketitle
+
+\input{Abstract}
+
+\tableofcontents
+
+\pagebreak
+\input{TaskDescription}
+\input{MetagameAndOurApproach}
+\input{NeuralNetworkModel}
+\input{MCTS}
+\input{Discussion}
+\input{GUI}
+\input{Code}
+
+% General comments
+
+% Figure and Section referencing - please check
+
+% Capitalisation
+% Figure 1, Section 1, in the next section
+% other terminologies to be discussed
+
+% original AlphaGeese agent
+% original PubHRL parameters
+% finetuned PubHRL parameters
+
+% Shorthand
+% MCTS
+
+% HK haven't standardise the following himself yet
+% Model - refers to NN model
+% Search strategy - refers to MCTS
+% Agent - refers to the whole thing
+
+% PubHRL authors, AlphaGeese author (not HandyRL author)
+
+% goose and geese
+
+% action-value, state-value  (not policy-value)
+
+% turn, step, rating, rank
+
+% code-wise, probably I should run each of the 5 versions against AlphaGeese
+
+% typesetting at the last step
+
+\section{References}
+\bibliographystyle{unsrt}
+\bibliography{reference}
+
+\end{document}

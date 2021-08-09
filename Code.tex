@@ -1,0 +1,51 @@
+% camera ready
+\section{Our Code}
+\label{section_code}
+
+This section documents the code that we have written for this project. Most of the code that we have used is either a fork of another repository on Github or a fork of another notebook on Kaggle. We also briefly describe the source of our code, how did we edit the code, and what the code is used for.
+
+You may see the specific changes we made in the original versions. For Github, you can see the commit history of our forked repositories. For Kaggle, you can click on the version history of the notebooks, and compare the difference between the two versions in the history.
+
+
+\subsection{HandyRL Fork}
+\label{subsection_handyrl_fork}
+
+\verb|https://github.com/tonghuikang/handyRL| \newline\newline
+This repository contains the attempted edits to train the model from scratch. We attempted to train the model with different neural network architecture, or with against different agents. This repository is a fork of a distributed reinforcement learning library from the PubHRL authors \cite{repo_handyrl}.
+
+The variations of the model architecture listed in Subsection \ref{figure_alt_arch} is recorded in different branches. The branches can be accessed here. \newline
+\verb|https://github.com/tonghuikang/HandyRL/branches/all|
+
+
+\subsection{Training Logs}
+\label{subsection_training_logs}
+
+\verb|https://github.com/tonghuikang/hungry-goose-training-logs/|\newline\newline
+The \verb|logs/| folder contains the training logs for Section \ref{subsection_alt_model_arch_hyper_param} and \ref{subsection_training_against_different_agents}. \verb|analysis.ipynb| contains the code to make the plots in Figure \ref{figure_alt_arch}, \ref{figure_assorted} and \ref{figure_greedy_adverse}. The folder \verb|strings| contains base64 model paramters.
+
+
+\subsection{Submitted Agents}
+\label{subsection_submission}
+
+\verb|https://www.kaggle.com/huikang/hg-alphageese-baseline|\newline\newline
+In order to submit to the competition, you need to produce a notebook on Kaggle that generates a Python file after it runs. The Kaggle simulator will call the last function defined in your Python file to query the action given the environment.
+
+This notebook is a fork of the notebook from the AlphaGeese author \cite{notebook_alphageese_baseline}. The initial parameters of the neural network model are from the PubHRL authors \cite{notebook_pubhrl}.
+
+Most of our Kaggle submissions are made from this notebook. To keep our notebook clean, and to adhere to the notebook file size limit, model parameters are downloaded from loaded from our training logs repository described in Subsection \ref{subsection_mcts_improvements}.
+
+
+\subsection{Agent Evaluation}
+\label{subsection_evaluation}
+
+\verb|https://www.kaggle.com/huikang/hg-agents-comparison|\newline\newline
+We use this notebook to evaluate the win-rate against AlphaGeese, as described in Subsection \ref{subsection_results}. This will give us a good sense of the model performance. This is a fork of a notebook from user \verb|ihelon| \cite{notebook_agents_comparison}.
+
+
+\subsection{GUI Notebook}
+\label{subsection_gui_notebook}
+
+\verb|https://github.com/tinkitwong/kaggle-environments/|\newline\newline
+This contains the code to run a GUI to play against the agents. The instructions to set up and run the GUI has been described in Section \ref{section_gui}. 
+
+This is a fork of an official repository by Kaggle \cite{repo_kaggle_environments}. We have fixed some lines of code to enable the game logic to take keyboard input, and not stall the game if another agent has died. We have also added popular agents \cite{notebook_agents_comparison} into the repository for the GUI user to play against.

@@ -1,0 +1,85 @@
+% camera ready
+\section{Monte Carlo Tree Search}
+\label{section_mcts}
+
+As described in subsection \ref{subsubsection_nn_weakness}, the neural network model may not always provide the best action-values. This can be addressed by simulating multiple steps of the game to improve the quality of move suggestions.
+
+The simulation is considered a tree search as we consider the possible moves made by each agent simultaneously. Each board state can be considered as a node. A directed edge between two nodes exists $i \to j$ if there is a set of valid actions from each agent that can cause a transition from state $i$ to state $j$.
+
+As there is a maximum of four agents each making either of three possible moves, the branching factor of the game tree is 81. The branching factor is likely to decrease on average as the game progresses due to lesser geese and more crowded board space.
+
+An exhaustive tree search is not possible due to the number of steps in the game (up to 200) as well as the large branching factor of 81. Therefore the original AlphaGeese agent uses a Monte Carlo tree search (MCTS) as a heuristic tree search algorithm. In the pure MCTS algorithm, random rollouts were made until a terminal state is reached, and what follows is the backpropagation of the payoff in the game tree. However, as it is possible for the game to progress until step 200, random rollouts are inefficient and ineffective. AlphaGo replaces the random rollouts with a neural network that infer the expected payoff at each non-terminal state \cite{blog_alphago_tutorial}. 
+
+% In Monte Carlo Tree Search, we expand the search tree based on the random sampling of the search space. We conduct many rounds of tree search, which is called playouts. In each playout, we select moves at random and complete each game. The final outcome of each playout is used to weigh the nodes in the game tree so the better nodes are more likely to be chosen in future playouts.
+% \\[1em]
+% In the game, we have four actions, hence we model each node in the tree to have four child nodes, with each child node corresponding to probability of adopting a certain policy.
+
+% As seen in Section X, the use of Monte Carlo Tree Search on top of the PubHRL makes the model superior to PubHRL.
+
+% How concepts from game tree search can apply.
+
+\subsection{Algorithm Implemented by AlphaGeese}
+\label{subsection_alphageese_algo}
+
+AlphaGeese \cite{notebook_alphageese_baseline} follows an implementation of MCTS \cite{repo_MCTS} \cite{paper_othello}. The implementation of MCTS tracks the following variables.
+
+\begin{itemize}
+    \item $P(s,a,i)$ The prior probability agent $i$ of taking an action $a$ from a state $s$ according to the neural network. This is the softmaxed value of the action-values inferred by the neural network.
+    \item $N(s,a,i)$ The number of times we explore the action $a$ taken by agent $i$ from a state $s$ when we are searching the tree.
+    \item $Q(s,a,i)$ The expected reward for taking the action $a$ by agent $i$ from a state $s$. This is initialised with the state-value inferred by the neural network. $Q(s,a,i)$ is the average of the state-values of the explored nodes in its subtree.
+\end{itemize}
+
+The action with the highest upper confidence bound $U(s,a)$ is explored.
+
+$$
+U(s,a,i) = Q(s,a,i) + c_{cpuct} P(s,a,i) \dfrac{\sqrt{\sum_b N(s,b,i)}}{1 + N(s,a,i)}
+$$
+
+Different implementations of MCTS may have different expressions for the upper confidence bound. The constant $c_{cpuct}$ is a search hyperparameter that controls the degree of exploration.
+
+At every unexplored node, the neural network makes an inference providing the state-value and the action-values. The state-value is backpropagated in the search tree, updating $Q(s,a,i)$. If the unexplored node is a terminal state where the agent is eliminated or the game reaches 200 moves, the actual reward is backpropagated instead. The action values are softmaxed and stored as $P(s,a,i)$.
+
+At the root node $s'$, the most explored action $\max_{a} N(s',a,0)$ is the returned result of our search strategy.
+
+
+\subsection{Approaches at Improving the Search}
+\label{subsection_mcts_improvements}
+
+In this section, we describe how we attempt to improve the search and the intention behind the improvements. The code is described in Section \label{subsection_code_submission}. In the following section, Section \ref{section_discussion}, we describe and interpret the results.
+
+\subsubsection{V13 - Use of Different Agents in Search}
+\label{subsubsection_v13}
+
+In the original AlphaGeese notebook, the PubHRL model is used to make model suggestions at every node. We replaced the pretrained parameters shared by HandyRL with our finetuned parameters.
+
+To better simulate the opponent moves, when we are making a neural network inference for opposing agents, we use the original PubHRL parameters. This approach gave our first agents that perform better than the original AlphaGeese.
+
+\subsubsection{V14 - Assuming Rivals follow PubHRL Deterministically}
+\label{subsubsection_v14}
+
+In the MCTS, we assume that our opponents' moves are deterministic and follow the inferences of PubHRL without modification. As this reduces the branching factor, we are also able to search more deeply into the tree. This is done by setting the setting exploration constant of other agents to zero.
+
+\subsubsection{V17 - Use of Overage Time to Tie Break}
+\label{subsubsection_v17}
+
+Each agent is given one second to make an inference for every move. However, there is one fine detail of this rule - each agent is allowed to exceed one second for a total of one minute in each game. The original AlphaGeese model does not make use of this overage time.
+
+One way to use the overage time is to extend the allowed duration of each move by 0.3 seconds on average. We have decided to use this overage time more strategically by spending it on moves where are current probabilities are close.
+
+In our implementation, each move is allowed to use an overage time of up till the four times the remaining overage time if shared equally by remaining steps. We employ the overage time if the current tree search probability is under a certain threshold. As move probabilities usually increase as the board gets more crowded, the threshold is set to be 0.5 at the start, which linearly increases to 0.9 at move 200. To allow sufficient time to make the remaining moves, we do not use overage time if the remaining overage time is less than 10 seconds.
+
+\subsubsection{V32 - Soft Masking of Undesirable Moves}
+\label{subsubsection_v32}
+
+As described in Subsections \ref{subsubsection_tail_strike} and \ref{subsubsection_length_ignorance}, the neural network may provide bad inference in certain scenarios. In an extreme case, the model may produce a probability very close to one for a move that is certain to result in the worst possible outcome.
+
+We multiply the action-values produced by the neural network model with the following coefficients if the scenarios apply. The values of the coefficients are arbitrarily chosen.
+\begin{itemize}
+\item 0.000 if the move is illegal. This is already present in the original AlphaGeese notebook \cite{notebook_alphageese_baseline}.
+\item 0.101 if the move results in a potential tail strike as described in Section \ref{subsubsection_tail_strike}.
+\item 0.111 if there is a potential of a head collision with another goose of greater length as described in Section \ref{subsubsection_length_ignorance}.
+\item 0.888 if the move results in a head collision with another goose of shorter or equal length while there are at least three remaining agents in the game.
+\item 3.333 if there is are only two remaining agents in the game and you are the longer goose. In this case, a head collision secures first place.
+\end{itemize}
+
+This modifies the value of $P(s,a,i)$, which is obtained after softmaxing the action-values. We hope that this encourages the MCTS to start the search from a more reasonable, in the hopes that it will return a better result.
